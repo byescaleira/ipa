@@ -11,10 +11,10 @@ Referências: [Distribute with AltStore PAL](https://faq.altstore.io/developers/
 | 1 | Aceitar o *Alternative Terms Addendum* em App Store Connect › Business › Agreements | usuário (Account Holder) | — |
 | 2 | Pegar o **Developer ID** em App Store Connect › nome no canto › Edit Profile (é um UUID, não o Team ID `Q7QLR2PH2X`) | usuário | feito |
 | 3 | `POST https://api.altstore.io/register` com o Developer ID e o e-mail; devolve um token | Claude, com o Developer ID | feito em 16/10/2026 (token vale 24 h) |
-| 4 | App Store Connect › Users and Access › Integrations › Marketplace › `+`: colar o token, escolher o IPA, "Yes, send notifications" | usuário | — |
-| 5 | Criar o app em App Store Connect › Apps › `+` › New App (dados abaixo) | usuário | — |
-| 6 | Xcode Cloud, workflow com Archive iOS (scheme **Production**, App Store Connect) na `feature/pal-notarization`, ambiente "Latest Release" (o upload local com o Xcode beta falha com o erro 90534) | usuário | build 1 iniciado em 16/10/2026 |
-| 7 | Na página do app: preencher os metadados (abaixo), App Review › Review Type › **Notarization**, escolher o build 1.0 (2) e enviar | usuário | — |
+| 4 | App Store Connect › Users and Access › Integrations › Marketplace › `+`: colar o token, escolher o IPA, "Yes, send notifications" | usuário | feito |
+| 5 | Criar o app em App Store Connect › Apps › `+` › New App (dados abaixo) | usuário | feito |
+| 6 | Xcode Cloud, workflow com Archive iOS (scheme **Production**, App Store Connect) na `feature/pal-notarization`, ambiente "Latest Release" (o upload local com o Xcode beta falha com o erro 90534) | usuário | build 1.0 (1) no TestFlight em 16/10/2026 |
+| 7 | Na página do app: preencher os metadados (abaixo), App Review › Review Type › **Notarization**, escolher o build 1.0 (2) e enviar | usuário | enviado em 16/10/2026 (Waiting for Review), com as artes de `docs/store` |
 | 8 | Depois da aprovação (o artigo citou cerca de 30 h): pegar o **ADP ID** do build e o **Apple ID** do app (App Information) | usuário | — |
 | 9 | `POST https://api.altstore.io/adps` com o ADP ID, `GET …/adps/<id>` até ter o `downloadURL`, baixar o pacote e hospedar sem alterar nenhum arquivo em `byescaleira/apps/pal/ipa/<versão>/` | Claude | — |
 | 10 | Criar `pal.json` (source separado do `source.json`) com `marketplaceID` e o `downloadURL` apontando para o `manifest.json` hospedado | Claude | — |
