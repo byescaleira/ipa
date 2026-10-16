@@ -2,7 +2,7 @@ import Foundation
 import IPADomain
 import Security
 
-public struct ServerConfigStore: Sendable {
+public struct ServerConfigStore: ServerConfigStoring {
     private let service: String
 
     public init(service: String = "com.byescaleira.ipa") {

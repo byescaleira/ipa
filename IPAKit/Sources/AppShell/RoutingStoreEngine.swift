@@ -1,14 +1,13 @@
 import Foundation
-import IPAData
 import IPADomain
 import IPAEngine
 
 struct RoutingStoreEngine: StoreEngine {
-    private let configStore: ServerConfigStore
+    private let configStore: any ServerConfigStoring
     private let vault: any AccountVault
     private let local: any StoreEngine
 
-    init(configStore: ServerConfigStore, vault: any AccountVault, local: any StoreEngine) {
+    init(configStore: any ServerConfigStoring, vault: any AccountVault, local: any StoreEngine) {
         self.configStore = configStore
         self.vault = vault
         self.local = local

@@ -14,19 +14,23 @@ public final class IPAServices {
 
     private init() {
         let vault = KeychainAccountVault()
+        let serverConfig = ServerConfigStore()
         store = StoreServices(
-            catalog: ITunesCatalog(), engine: Self.engine(vault: vault), vault: vault,
-            folder: .documents)
+            catalog: ITunesCatalog(),
+            engine: Self.engine(vault: vault, serverConfig: serverConfig), vault: vault,
+            folder: .documents, serverConfig: serverConfig)
     }
 
-    private static func engine(vault: any AccountVault) -> any StoreEngine {
+    private static func engine(vault: any AccountVault, serverConfig: any ServerConfigStoring)
+        -> any StoreEngine
+    {
         let local: any StoreEngine
         #if os(iOS)
             local = isSimulator ? SimulatedStoreEngine(vault: vault) : IPAToolEngine(vault: vault)
         #else
             local = UnavailableStoreEngine()
         #endif
-        return RoutingStoreEngine(configStore: ServerConfigStore(), vault: vault, local: local)
+        return RoutingStoreEngine(configStore: serverConfig, vault: vault, local: local)
     }
 
     private static var isSimulator: Bool {
