@@ -7,7 +7,7 @@
 	<key>IPAHelpURL</key>
 	<string>https://github.com/byescaleira/ipa</string>
 	<key>IPAPrivacyURL</key>
-	<string></string>
+	<string>https://byescaleira.github.io/apps/privacy/</string>
 	<key>IPASupportEmail</key>
 	<string></string>
 	<key>IPATermsURL</key>
@@ -25,6 +25,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>UIFileSharingEnabled</key>

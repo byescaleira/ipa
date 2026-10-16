@@ -88,3 +88,11 @@ Registro das decisões que moldam o código, em ordem. Cada entrada diz o que fo
 - **`scripts/release.sh` gera o `.ipa` sem assinatura e publica.** Archive Release para `generic/platform=iOS` sem assinatura (o AltStore re-assina com o Apple ID de quem instala), empacotado em `Payload/`; com `--publish`, cria o GitHub Release `v<versão>-<build>` no `byescaleira/ipa` e acrescenta a versão no `source.json` pelo `scripts/add-version.py` do repositório do source.
 - **Builds Release usam o `UnavailableStoreEngine`.** Enquanto o motor do ipatool não está pronto, o build distribuído não pode simular login e download com arquivos falsos; ele diz que o motor não está disponível e deixa busca e detalhes funcionando. O `SimulatedStoreEngine` fica só em Debug.
 - **Commits deste repositório com o e-mail pessoal daqui para frente, por decisão do usuário.** `user.email` local é `rafaelescaleira@icloud.com`; o histórico já publicado ficou como estava.
+
+## 16/10/2026: AltStore PAL com app notarizado
+
+- **Notarizar o IPA para o AltStore PAL, por decisão do usuário.** O PAL (UE, Japão e Brasil) só instala apps notarizados pela Apple, com `marketplaceID`; o source de sideload (`source.json`) segue para AltStore Classic e SideStore, e o PAL ganha um source próprio (`pal.json`), porque o AltStore não mistura os dois tipos. Roteiro em [pal.md](pal.md).
+- **Nome no App Store Connect "IPA byescaleira", por decisão do usuário.** O nome na tela inicial continua "IPA".
+- **Política de privacidade em `https://byescaleira.github.io/apps/privacy/`, por decisão do usuário**, em inglês e português; ligada no `IPAPrivacyURL` do `Info.plist`.
+- **`ITSAppUsesNonExemptEncryption = NO` e build 2** para o primeiro envio ao App Store Connect; o app só usa a criptografia do sistema (HTTPS e Keychain).
+- **Metadados só com o que o build faz.** Contas e downloads dependem do motor do ipatool, ainda indisponível no Release; a descrição fala de busca, detalhes e identificadores.
