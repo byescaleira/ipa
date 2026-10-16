@@ -5,7 +5,8 @@ O que falta, por prioridade. Itens concluídos saem daqui; o motivo das decisõe
 ## Antes de distribuir
 
 - **[P1] Ícone próprio.** Trocar `IPAIcon.icon` pelo ícone do app e rodar `scripts/icons.sh`.
-- **[P1] Build para sideload.** Script que gera o `.ipa` sem assinatura (Release, iOS) para AltStore/SideStore, e o `.app` do Mac assinado com Developer ID e `allow-jit`.
+- **[P2] App do Mac para distribuição.** O `.app` do Mac assinado com Developer ID e `allow-jit`, quando o motor existir.
+- **[P2] Release automático.** Rodar o `scripts/release.sh` num workflow do GitHub Actions por tag, quando houver runner com o Xcode 27.
 
 ## Produto
 

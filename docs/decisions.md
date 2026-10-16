@@ -81,3 +81,10 @@ Registro das decisões que moldam o código, em ordem. Cada entrada diz o que fo
 - **Contas sem o menu da conta na toolbar.** O herói da aba já é a conta em uso, e a toolbar fica só com "Add Account"; Busca e Downloads mantêm o `AccountMenu`.
 - **A linha "Device Identity" mostra o fim do identificador** ("…FF:01"), para a linha ter valor como as outras sem expor o endereço inteiro na lista.
 - **Terminologia em pt-BR fixada.** Títulos e botões em caixa de frase, "Chaves" para o Keychain, "login" para sign-in, "Buscar" para a aba e "bundle ID"; em japonês, "App" em vez de "アプリ".
+
+## 16/10/2026: distribuição por source do AltStore
+
+- **Source próprio no repositório `byescaleira/apps`, por decisão do usuário.** Como o iTorrent: um `source.json` no formato do AltStore e do SideStore, servido pelo GitHub Pages (`https://byescaleira.github.io/apps/source.json`), que lista os apps de sideload do usuário. Começa só com o IPA.
+- **`scripts/release.sh` gera o `.ipa` sem assinatura e publica.** Archive Release para `generic/platform=iOS` sem assinatura (o AltStore re-assina com o Apple ID de quem instala), empacotado em `Payload/`; com `--publish`, cria o GitHub Release `v<versão>-<build>` no `byescaleira/ipa` e acrescenta a versão no `source.json` pelo `scripts/add-version.py` do repositório do source.
+- **Builds Release usam o `UnavailableStoreEngine`.** Enquanto o motor do ipatool não está pronto, o build distribuído não pode simular login e download com arquivos falsos; ele diz que o motor não está disponível e deixa busca e detalhes funcionando. O `SimulatedStoreEngine` fica só em Debug.
+- **Commits deste repositório com o e-mail pessoal daqui para frente, por decisão do usuário.** `user.email` local é `rafaelescaleira@icloud.com`; o histórico já publicado ficou como estava.

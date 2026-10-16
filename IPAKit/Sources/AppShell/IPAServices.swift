@@ -14,8 +14,16 @@ public final class IPAServices {
     private init() {
         let vault = KeychainAccountVault()
         store = StoreServices(
-            catalog: ITunesCatalog(), engine: SimulatedStoreEngine(vault: vault), vault: vault,
+            catalog: ITunesCatalog(), engine: Self.engine(vault: vault), vault: vault,
             folder: .documents)
+    }
+
+    private static func engine(vault: any AccountVault) -> any StoreEngine {
+        #if DEBUG
+            SimulatedStoreEngine(vault: vault)
+        #else
+            UnavailableStoreEngine()
+        #endif
     }
 
     public func database() async throws -> IPADatabase {

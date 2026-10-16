@@ -16,6 +16,10 @@ App para iPhone, iPad, Mac e Apple Vision que busca apps da App Store em qualque
 - O motor do ipatool precisa de JIT. No Mac funciona direto; no iPhone, iPad e Apple Vision sem jailbreak, só com JIT ativado por fora (por exemplo, StikDebug).
 - O app usa APIs privadas da App Store e é distribuído por sideload, não pela App Store.
 
+## Instalar
+
+Adicione o source `https://byescaleira.github.io/apps/source.json` no AltStore ou no SideStore. Para publicar uma versão: `scripts/release.sh --publish --notes "<novidades>"`.
+
 ## Começando
 
 Abra `IPA.xcworkspace` no Xcode 27 e use o scheme `Production` para o app ou `IPAKitTests` para os testes.
