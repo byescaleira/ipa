@@ -1,0 +1,28 @@
+{
+  "app": "IPA",
+  "include": [
+    "^IPAKit/Sources/",
+    "^IPAKit/Tests/",
+    "^IPA/"
+  ],
+  "exclude": [
+    "/IPAResource/IPAResourceAnimation\\.swift$",
+    "Package\\.swift$",
+    "/IPAMock/",
+    "/IPAPreview/"
+  ],
+  "catalogs": [
+    "IPA/IPA/Localizable.xcstrings"
+  ],
+  "swiftlintConfig": ".swiftlint.yml",
+  "swiftlintResolver": "scripts/install-swiftlint.sh",
+  "allow": {
+    "literal-color": [
+      "/IPADesignSystem/",
+      "/IPADesignSystemTests/"
+    ],
+    "foreign-localization": [
+      "/IPADomain/Localization/"
+    ]
+  }
+}

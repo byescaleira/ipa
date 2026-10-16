@@ -1,95 +1,23 @@
-<p align="center">
-    <img src="images/icon.png" height="150">
-</p>
+# IPA
 
-# DLiPA
+App SwiftUI para iOS, iPadOS, macOS e visionOS 27, com SwiftData local e sincronização CloudKit em aparelhos assinados. Criado com o template do plugin `apple-sdd`.
 
-An iOS app inspired by the [ipatool](https://github.com/majd/ipatool) project. It allows users to download, install, and share App Store applications using their Apple ID, with support for downloading older versions — no jailbreak required.
+- [Arquitetura](docs/architecture.md)
+- [Design system](docs/design-system.md)
+- [Decisões](docs/decisions.md)
+- [Backlog](docs/backlog.md)
+- [Roadmap](docs/roadmap.md)
 
-**Supported:** iOS 13+
+## Começando
 
-## Screenshots
+Abra `IPA.xcworkspace` no Xcode 27 e use o scheme `Production` para o app ou `IPAKitTests` para os testes.
 
-<div>
-  <img src="images/1.PNG" height="290">
-  <img src="images/2.PNG" height="290">
-  <img src="images/3.PNG" height="290">
-  <img src="images/4.PNG" height="290">
-  <img src="images/5.PNG" height="290">
-</div>
+```sh
+scripts/format.sh
+scripts/lint.sh
+scripts/build.sh Debug
+scripts/strings.sh
+scripts/test.sh
+```
 
-## Features
-
-- [x] Select an available storefronts.
-- [x] Search for applications with name, Bundle-id, link.
-- [x] Ability to copy such as Bundle-id, application-id, link.
-- [x] Multiple account support.
-- [x] Purchase only free apps.
-- [x] Download apps as an ipa file.
-- [x] Download apps with older versions.
-- [x] Download specific app versions via Version ID.
-- [x] Each account has separate downloads.
-- [x] Share apps as an ipa file.
-- [x] Install apps on device.
-- [x] Supports for non jailbroken devices.
-
-> ⚠️ **Note:** Installing apps directly from within the app may cause issues such as missing automatic updates.  
-> For best results, use AirDrop to install them by sharing from another device.
-
-## Supported Languages
-
-| Language | Language |
-| :--- | :--- |
-| Arabic | Japanese |
-| English | Korean |
-| Chinese (Simplified) | Russian |
-| French | Spanish |
-| German | Turkish |
-| Hindi | Vietnamese |
-| Indonesian | |
-| Italian | |
-
-## Install DLiPA
-
-Download the latest version from [Releases](https://github.com/AhmedBafkir/DLiPA/releases).
-
-<details>
-<summary><strong>AltStore</strong></summary>
-
-<blockquote>
-
-### Requirements:
-
-1. A computer running macOS or Windows
-2. Internet connection
-3. Apple ID (email & password)
-4. If you are on iOS 16, you may need to enable Developer Mode. (Settings > Privacy & Security > Developer Mode)
-
-### Install:
-
-* Download and install AltServer from [here](https://altstore.io)
-
-* Right-click on the AltServer icon with your phone connected and choose "Install AltStore", then the name of your phone. When prompted sign in with your Apple ID. Two-factor Authentication is supported, but app-specific passwords are not.
-
-* Download the IPA file from the [Releases](https://github.com/AhmedBafkir/DLiPA/releases) and copy it to your phone, using iCloud Drive, AirDrop, or any other method. Open AltStore and navigate to the "My Apps" tab. Choose the plus in the top right corner and open the IPA file. When prompted sign in with your Apple ID. Two-factor Authentication is supported, but app-specific passwords are not.
-
-</blockquote>
-</details>
-
-<details>
-<summary><strong>iOS App Signer</strong></summary>
-<blockquote>
-
-See all instructions from [here](https://dantheman827.github.io/ios-app-signer/)
-
-</blockquote>
-</details>
-
-## Acknowledgements
-
-Special thanks to [ipatool](https://github.com/majd/ipatool) by Majd Alfhaily
-
-## Support the app ♡
-If you find this project useful, I would be very grateful for your support in its continuation and development.
-
-[![Support DLiPA](https://img.shields.io/badge/PayPal-Support_DLiPA-blue?logo=paypal)](https://www.paypal.com/ncp/payment/RLKKWBYSKSPVU)
+O simulador usa o banco local com CloudKit desligado. Nos aparelhos, o app usa o container `iCloud.ipa`.
