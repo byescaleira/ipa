@@ -13,6 +13,8 @@ O que falta, por prioridade. Itens concluídos saem daqui; o motivo das decisõe
 - **[P1] Instalar no aparelho.** O DLiPA instalava pelo `itms-services`, que exige um servidor HTTPS local com certificado válido; estudar antes de prometer.
 - **[P2] Motor no visionOS.** Go não gera binário para visionOS; avaliar reetiquetar os objetos do slice de iOS ou usar o Mac como motor remoto.
 - **[P2] Mac como motor do iPhone.** Sem JIT, o iPhone poderia pedir ao Mac que entre e baixe e receber o `.ipa` pela rede local.
+- **[P2] Tamanho das versões antigas.** `AppVersion` não traz tamanho; a confirmação de uma versão mostra versão, data e ID. Quando o motor real devolver o tamanho (metadado do `ipa_version_metadata`), acrescentar a linha "Size".
+- **[P2] Ordem e lotes com o motor real.** A Busca ordena os IDs de versão do maior para o menor e pede o metadado em lotes de 10 das linhas visíveis; conferir com o `IPAToolEngine` (2.1) se o limite de pedidos da Apple aceita esse ritmo.
 - **[P3] Compras da conta.** O ipatool lista os apps já obtidos (`list-purchases`); dá uma seção "Purchased" por conta.
 
 ## Motor e revisão
