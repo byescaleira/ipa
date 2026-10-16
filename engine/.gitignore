@@ -1,0 +1,4 @@
+.ipatool/
+*.a
+*.h
+build/
