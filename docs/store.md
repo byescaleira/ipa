@@ -102,7 +102,7 @@ Quatro abas (`TabView` `.sidebarAdaptable`), como no DLiPA: **Search**, **Downlo
 | --- | --- |
 | 1 | Domínio e dados (`Storefront`, `StoreApp`, `AppQuery`, `Account`, `DownloadRecord`, protocolos), `ITunesCatalog`, `KeychainAccountVault`, downloads no SwiftData, `AccountsModel` e `DownloadCenter`, motor simulado, quatro abas com telas mínimas; remoção do exemplo `Item` |
 | 2.1 | Motor: ponte Go, `scripts/ipatool.sh`, `IPAToolCore.xcframework` (iOS, simulador, macOS), `IPAToolEngine`, `JITStatus` |
-| 2.2 | Busca, lojas, detalhe do app e versões |
+| 2.2 | Busca, lojas, detalhe do app e versões — feita |
 | 2.3 | Downloads e contas — feita |
 | 2.4 | Ajustes e guias — feita |
 | 3 | Integração, suíte inteira, verificação no simulador e no Mac, README e build para sideload |

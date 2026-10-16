@@ -16,6 +16,9 @@ O que falta, por prioridade. Itens concluídos saem daqui; o motivo das decisõe
 - **[P3] Miniatura do tema igual ao herói de Downloads.** O herói ficou "ON THIS DEVICE" · "5 packages" · "412.5 MB used"; a `ThemePreview` (etapa 2.4) ainda mostra "Packages on this device" e "5".
 
 - **[P2] Progresso no hub de guias.** A receita do Cashly tem o cartão "x of y guides done" e "Next for you", que dependem de registrar a conclusão de cada guia; o IPA ainda não grava isso (sem eventos nem XP), então o hub mostra só as categorias.
+
+- **[P2] Tamanho das versões antigas.** `AppVersion` não traz tamanho; a confirmação de uma versão mostra versão, data e ID. Quando o motor real devolver o tamanho (metadado do `ipa_version_metadata`), acrescentar a linha "Size".
+- **[P2] Ordem e lotes com o motor real.** A Busca ordena os IDs de versão do maior para o menor e pede o metadado em lotes de 10 das linhas visíveis; conferir com o `IPAToolEngine` (2.1) se o limite de pedidos da Apple aceita esse ritmo.
 - **[P3] Compras da conta.** O ipatool lista os apps já obtidos (`list-purchases`); dá uma seção "Purchased" por conta.
 
 ## Motor e revisão
