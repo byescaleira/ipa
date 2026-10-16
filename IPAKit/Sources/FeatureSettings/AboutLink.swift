@@ -13,7 +13,7 @@ struct AboutLink: Identifiable {
 
     var title: LocalizedStringKey {
         switch kind {
-        case .website: "Website"
+        case .website: "Source Code"
         case .help: "Help Center"
         case .contact: "Contact Us"
         case .privacy: "Privacy Policy"
@@ -23,7 +23,7 @@ struct AboutLink: Identifiable {
 
     var symbol: String {
         switch kind {
-        case .website: "globe"
+        case .website: "chevron.left.forwardslash.chevron.right"
         case .help: "questionmark.circle"
         case .contact: "envelope"
         case .privacy: "hand.raised"
@@ -38,6 +38,10 @@ extension AppInfo {
             (.website, websiteURL), (.help, helpURL), (.contact, supportURL),
             (.privacy, privacyURL), (.terms, termsURL),
         ]
-        return pairs.compactMap { kind, url in url.map { AboutLink(kind: kind, url: $0) } }
+        var seen: Set<URL> = []
+        return pairs.compactMap { kind, url in
+            guard let url, seen.insert(url).inserted else { return nil }
+            return AboutLink(kind: kind, url: url)
+        }
     }
 }

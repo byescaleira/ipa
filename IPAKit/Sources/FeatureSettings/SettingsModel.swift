@@ -45,6 +45,12 @@ public final class SettingsModel {
 
     public var locale: Locale { languageSetting.locale }
 
+    public func reset() {
+        appearance = .system
+        tint = RetroColor.default.hex
+        language = .system
+    }
+
     private enum Key {
         static let appearance = "ipa.settings.appearance"
         static let language = "ipa.settings.language"

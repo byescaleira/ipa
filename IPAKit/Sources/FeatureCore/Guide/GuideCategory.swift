@@ -2,7 +2,7 @@ import Foundation
 import IPADomain
 
 public enum GuideCategory: String, CaseIterable, Identifiable, Sendable {
-    case start, sideload, personalize, data
+    case start, sideload, data
 
     public var id: String { rawValue }
 
@@ -10,7 +10,6 @@ public enum GuideCategory: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .start: String(appLocalized: "Start Here")
         case .sideload: String(appLocalized: "Sideloading")
-        case .personalize: String(appLocalized: "Personalize")
         case .data: String(appLocalized: "Data and Privacy")
         }
     }

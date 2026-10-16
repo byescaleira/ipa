@@ -51,6 +51,7 @@ private struct SettingsSections<Extra: View>: View {
         } header: {
             Text("General")
         }
+        StoreSettingsHost()
         extra
         Section {
             if showGuide != nil, flags?.isOn(.guides) != false {

@@ -4,16 +4,18 @@ import Lottie
 import SwiftUI
 
 public enum IPAAnimation: String, CaseIterable, Sendable {
+    case computer
     case direct
     case done
-    case editor
+    case download
     case find
+    case identity
     case install
     case jit
     case launch
     case privacy
     case setup
-    case widgets
+    case share
 }
 
 public struct IPAAnimationView: View {

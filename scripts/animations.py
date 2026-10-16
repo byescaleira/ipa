@@ -229,6 +229,17 @@ def dot(color, diameter, opacity=100):
 # --- Animations ------------------------------------------------------------------------------
 
 
+def computer():
+    laptop = icon("laptopcomputer", "tint", 88, (122, 90), delay=0)
+    laptop["ks"]["s"] = appear(0, 30, overshoot=106, start=50)
+    phone = icon("iphone", "ink", 72, (262, 92), delay=14, alpha=35)
+    cable = icon("cable.connector", "ink", 32, (206, 112), delay=30, alpha=55)
+    cable["ks"]["s"] = appear(30, overshoot=112, start=40)
+    check = icon("checkmark.circle.fill", "olive", 28, (284, 130), delay=96)
+    check["ks"]["s"] = appear(96, overshoot=116, start=40)
+    return [phone, laptop, cable, check]
+
+
 def direct():
     phone = icon("iphone", "ink", 84, (86, 90), delay=0, alpha=35)
     server = icon("server.rack", "teal", 72, (238, 90), delay=12)
@@ -273,13 +284,24 @@ def done():
     return [check] + layers + sparks
 
 
-def editor():
-    pencil = icon("square.and.pencil", "tint", 84, (124, 90), delay=0)
-    folder = icon("folder.fill", "olive", 44, (232, 66), delay=26)
-    folder["ks"]["s"] = appear(26, overshoot=110, start=40)
-    tag = icon("tag.fill", "mustard", 40, (236, 124), delay=44, rotation=settle(44, [-12, 5]))
-    tag["ks"]["s"] = appear(44, overshoot=112, start=40)
-    return [pencil, folder, tag]
+def download():
+    arrow = icon("arrow.down.circle.fill", "tint", 84, (108, 90), delay=0)
+    arrow["ks"]["s"] = appear(0, 30, overshoot=108, start=50)
+    box = icon("shippingbox.fill", "mustard", 46, (222, 66), delay=22)
+    box["ks"]["s"] = appear(22, overshoot=110, start=40)
+    layers = [arrow, box] + bar("olive", (222, 120), 1.0, 40, width=96, length=70)
+    check = icon("checkmark.circle.fill", "olive", 28, (290, 120), delay=112)
+    check["ks"]["s"] = appear(112, overshoot=116, start=40)
+    return layers + [check]
+
+
+def identity():
+    cycle = icon("arrow.counterclockwise", "tint", 84, (118, 90), delay=0, rotation=anim([(0, 180), (80, 0)]))
+    cycle["ks"]["s"] = appear(0, 30, overshoot=106, start=50)
+    phone = icon("iphone", "ink", 88, (232, 90), delay=10, alpha=35)
+    number = icon("number", "mustard", 30, (232, 88), delay=56)
+    number["ks"]["s"] = appear(56, overshoot=118, start=40)
+    return [phone, cycle, number]
 
 
 def install():
@@ -318,30 +340,27 @@ def privacy():
     return [shield, face]
 
 
-def widgets():
-    phone = icon("iphone", "ink", 100, (96, 90), delay=0, alpha=35)
-    layers = [phone]
-    for index, (name, x, y, width, height) in enumerate([("tint", 190, 60, 56, 56), ("olive", 262, 60, 56, 56), ("mustard", 226, 128, 128, 44)]):
-        delay = 20 + index * 12
-        layers.append(layer(name, [group([rect((width, height), 12), fill(name), transform()])], position=(x, y),
-                            scale=appear(delay, overshoot=108, start=40), opacity=fade(delay)))
-    lock = icon("lock.fill", "ink", 28, (96, 92), delay=72, alpha=55)
-    lock["ks"]["s"] = appear(72, overshoot=116, start=40)
-    return layers + [lock]
-
+def share():
+    phone = icon("iphone", "ink", 72, (70, 92), delay=0, alpha=35)
+    laptop = icon("laptopcomputer", "ink", 72, (262, 96), delay=8, alpha=35)
+    waves = icon("dot.radiowaves.left.and.right", "tint", 84, (162, 88), delay=0, scale=breathe(60, 6, step=40))
+    package = icon("shippingbox.fill", "mustard", 28, move([(36, (92, 34)), (110, (236, 34))]), delay=36)
+    return [phone, laptop, waves, package]
 
 
 ANIMATIONS = {
+    "computer": computer,
     "direct": direct,
     "done": done,
-    "editor": editor,
+    "download": download,
     "find": find,
+    "identity": identity,
     "install": install,
     "jit": jit,
     "launch": launch,
     "privacy": privacy,
     "setup": setup,
-    "widgets": widgets,
+    "share": share,
 }
 
 

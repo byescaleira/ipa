@@ -1,4 +1,5 @@
 import FeatureCore
+import IPADesignSystem
 import SwiftUI
 
 struct TutorialScreen: View {
@@ -33,7 +34,12 @@ private struct TutorialPageView: View {
         GuidePage(title: page.title, message: page.message) {
             IPAAnimationView(page.animation)
         } content: {
-            if !page.steps.isEmpty { GuideSteps(page.steps) }
+            VStack(spacing: .spaceM) {
+                if !page.steps.isEmpty { GuideSteps(page.steps) }
+                if let link = page.link {
+                    GuideLink(link.title, symbol: link.symbol, url: link.url)
+                }
+            }
         }
     }
 }
