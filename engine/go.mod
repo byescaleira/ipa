@@ -5,6 +5,7 @@ go 1.26.5
 require (
 	github.com/byteness/keyring v1.9.0
 	github.com/majd/ipatool/v2 v2.7.1
+	github.com/schollz/progressbar/v3 v3.19.1
 )
 
 require (
@@ -49,7 +50,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rs/zerolog v1.28.0 // indirect
-	github.com/schollz/progressbar/v3 v3.19.1 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/stangelandcl/ppmd v0.1.0 // indirect
 	github.com/tetratelabs/wabin v0.0.0-20230304001439-f6f874872834 // indirect

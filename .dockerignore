@@ -1,0 +1,6 @@
+*
+!engine
+engine/.ipatool
+engine/build
+engine/*.a
+engine/*.h
