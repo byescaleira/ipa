@@ -5,7 +5,7 @@
 	<key>IPAAppStoreID</key>
 	<string></string>
 	<key>IPAHelpURL</key>
-	<string></string>
+	<string>https://github.com/byescaleira/ipa</string>
 	<key>IPAPrivacyURL</key>
 	<string></string>
 	<key>IPASupportEmail</key>
@@ -13,7 +13,7 @@
 	<key>IPATermsURL</key>
 	<string></string>
 	<key>IPAWebsiteURL</key>
-	<string></string>
+	<string>https://github.com/byescaleira/ipa</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -25,21 +25,9 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSUbiquitousContainers</key>
-	<dict>
-		<key>iCloud.ipa</key>
-		<dict>
-			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
-			<true/>
-			<key>NSUbiquitousContainerName</key>
-			<string>IPA</string>
-			<key>NSUbiquitousContainerSupportedFolderLevels</key>
-			<string>Any</string>
-		</dict>
-	</dict>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>

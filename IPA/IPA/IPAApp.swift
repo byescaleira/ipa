@@ -40,20 +40,14 @@ private final class IPABootstrap {
     let flags: FeatureFlags
 
     init() {
-        #if targetEnvironment(simulator)
-            flags = FeatureFlags()
-        #else
-            flags = FeatureFlags(source: CloudKitFlagSource())
-        #endif
+        flags = FeatureFlags()
     }
 
     func prepare() async {
         guard database == nil else { return }
         error = nil
         do {
-            database = try await IPAServices.shared.database(
-                cloudSync: IPAServices.launchCloudSync)
-            Task { await flags.refresh() }
+            database = try await IPAServices.shared.database()
         } catch {
             self.error = error.localizedDescription
         }
@@ -89,7 +83,7 @@ private struct IPARootView: View {
             await bootstrap.prepare()
             guard !Task.isCancelled else { return }
             if let database = bootstrap.database {
-                window = IPAWindow(provider: database)
+                window = IPAWindow(provider: database, services: IPAServices.shared.store)
                 launch.finish(.database)
             }
         }

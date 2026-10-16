@@ -17,6 +17,8 @@ struct ThemeSample {
     let caption: String
     let headline: String
     let rows: [Row]
+    let tabs: [AppSection]
+    let selected: AppSection
 }
 
 extension SettingsModel {
@@ -33,17 +35,23 @@ extension SettingsModel {
 
     var themeSample: ThemeSample {
         ThemeSample(
-            title: String(appLocalized: "Home"),
-            caption: String(appLocalized: "Your Items"),
-            headline: 12.formatted(.number.locale(.app)),
+            title: AppSection.downloads.title,
+            caption: String(appLocalized: "Packages on this device"),
+            headline: 5.formatted(.number.locale(.app)),
             rows: [
                 ThemeSample.Row(
-                    symbol: "lightbulb", title: String(appLocalized: "First idea"), color: .mustard,
-                    detail: String(appLocalized: "Today"), fraction: 0.64),
+                    symbol: "cloud.sun.fill", title: "Weather Pro", color: .mustard,
+                    detail: sampleDetail("4.2", 120_000_000), fraction: 0.64),
                 ThemeSample.Row(
-                    symbol: "calendar", title: String(appLocalized: "Weekend plan"), color: .teal,
-                    detail: String(appLocalized: "Yesterday"), fraction: 0.3),
-            ])
+                    symbol: "camera.fill", title: "Photo Lab", color: .teal,
+                    detail: sampleDetail("2.1", 85_000_000), fraction: 1),
+            ],
+            tabs: AppSection.barSections, selected: .downloads)
+    }
+
+    private func sampleDetail(_ version: String, _ bytes: Int64) -> String {
+        let size = bytes.formatted(.byteCount(style: .file).locale(.app))
+        return String(appLocalized: "v\(version) · \(size)")
     }
 
     var languageFooter: String {

@@ -1,7 +1,7 @@
 public struct Repositories: Sendable {
-    public let items: any ItemRepository
+    public let downloads: any DownloadRepository
 
-    public init(items: any ItemRepository) {
-        self.items = items
+    public init(downloads: any DownloadRepository) {
+        self.downloads = downloads
     }
 }

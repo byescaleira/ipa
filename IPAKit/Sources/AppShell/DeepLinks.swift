@@ -33,6 +33,9 @@ struct DeepLinks: ViewModifier {
             navigation.selectedSection = section
         case .route(let route, let section):
             navigation.open(route, in: section, beside: horizontalSizeClass == .regular)
+        case .search(let text):
+            navigation.selectedSection = .search
+            navigation.pendingSearch = text
         }
     }
 }

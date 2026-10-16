@@ -11,8 +11,8 @@ struct AboutValuesSection: View {
                 "Private by design", detail: "No servers of its own and no account to create.",
                 symbol: "lock", color: .retroDenim)
             IconRow(
-                "Your iCloud, your call",
-                detail: "Sync goes only through your own iCloud account.", symbol: "icloud",
+                "Straight to Apple",
+                detail: "Sign-in and downloads go only to Apple's servers.", symbol: "network",
                 color: .retroTeal)
             IconRow(
                 "No ads, no tracking", detail: "Nothing about you is sold, shared or measured.",

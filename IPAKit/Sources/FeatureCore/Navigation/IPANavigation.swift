@@ -3,11 +3,12 @@ import SwiftUI
 
 @MainActor @Observable
 public final class IPANavigation {
-    public var selectedSection: AppSection = .home
+    public var selectedSection: AppSection = .search
     public var paths: [AppSection: [Route]] = [:]
     public var inspector: Inspector?
     public var inspectorPath: [Route] = []
     public var guide: Guide?
+    public var pendingSearch: String?
     public init() {}
 
     public struct Inspector: Identifiable, Equatable {

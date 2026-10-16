@@ -5,10 +5,15 @@ import Testing
 
 struct DeepLinkTests {
     @Test(arguments: [
-        ("ipa://items/new", DeepLink.route(.item(id: nil), in: .home)),
-        ("ipa://items/abc", DeepLink.route(.item(id: "abc"), in: .home)),
+        ("ipa://search?q=youtube", DeepLink.search("youtube")),
+        ("ipa://search", DeepLink.section(.search)),
+        ("ipa://apps/544007664", DeepLink.route(.app(id: 544_007_664), in: .search)),
+        ("ipa://apps/abc", DeepLink.section(.search)),
+        ("ipa://downloads", DeepLink.section(.downloads)),
+        ("ipa://accounts", DeepLink.section(.accounts)),
+        ("ipa://accounts/new", DeepLink.route(.signIn, in: .accounts)),
         ("ipa://settings", DeepLink.section(.settings)),
-        ("ipa://unknown", DeepLink.section(.home)),
+        ("ipa://unknown", DeepLink.section(.search)),
     ])
     func opensTheRightPlace(link: String, expected: DeepLink) throws {
         let url = try #require(URL(string: link))

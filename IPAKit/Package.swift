@@ -19,6 +19,7 @@ let package = Package(
         .target(name: "IPAData", dependencies: ["IPADomain"]),
         .target(name: "IPADesignSystem"),
         .target(name: "IPAResource", resources: [.process("Assets")]),
+        .target(name: "IPAMock", dependencies: ["IPADomain"]),
         .target(
             name: "FeatureCore",
             dependencies: [
@@ -26,10 +27,16 @@ let package = Package(
                 .product(name: "Lottie", package: "lottie-spm"),
             ]),
         .target(
+            name: "FeatureAccounts",
+            dependencies: ["IPADomain", "IPADesignSystem", "FeatureCore"]),
+        .target(
             name: "FeatureGuides",
             dependencies: ["IPADomain", "IPADesignSystem", "FeatureCore"]),
         .target(
-            name: "FeatureHome",
+            name: "FeatureLibrary",
+            dependencies: ["IPADomain", "IPADesignSystem", "FeatureCore"]),
+        .target(
+            name: "FeatureSearch",
             dependencies: ["IPADomain", "IPADesignSystem", "FeatureCore"]),
         .target(
             name: "FeatureSettings",
@@ -37,25 +44,33 @@ let package = Package(
         .target(
             name: "AppShell",
             dependencies: [
-                "IPADomain", "IPAData", "IPADesignSystem", "FeatureCore",
-                "FeatureGuides", "FeatureHome", "FeatureSettings",
+                "IPADomain", "IPAData", "IPADesignSystem", "IPAMock", "FeatureCore",
+                "FeatureAccounts", "FeatureGuides", "FeatureLibrary", "FeatureSearch",
+                "FeatureSettings",
             ]),
         .testTarget(name: "IPADomainTests", dependencies: ["IPADomain"]),
         .testTarget(name: "IPADataTests", dependencies: ["IPADomain", "IPAData"]),
         .testTarget(name: "IPADesignSystemTests", dependencies: ["IPADesignSystem"]),
         .testTarget(name: "IPAResourceTests", dependencies: ["IPAResource"]),
+        .testTarget(name: "IPAMockTests", dependencies: ["IPADomain", "IPAMock"]),
         .testTarget(
             name: "FeatureCoreTests",
             dependencies: [
-                "IPADomain", "IPAData", "IPADesignSystem", "IPAResource",
+                "IPADomain", "IPAData", "IPADesignSystem", "IPAMock", "IPAResource",
                 "FeatureCore",
             ]),
+        .testTarget(
+            name: "FeatureAccountsTests",
+            dependencies: ["IPADomain", "IPAData", "IPAMock", "FeatureCore", "FeatureAccounts"]),
         .testTarget(
             name: "FeatureGuidesTests",
             dependencies: ["IPADomain", "IPAData", "FeatureCore", "FeatureGuides"]),
         .testTarget(
-            name: "FeatureHomeTests",
-            dependencies: ["IPADomain", "IPAData", "FeatureCore", "FeatureHome"]),
+            name: "FeatureLibraryTests",
+            dependencies: ["IPADomain", "IPAData", "IPAMock", "FeatureCore", "FeatureLibrary"]),
+        .testTarget(
+            name: "FeatureSearchTests",
+            dependencies: ["IPADomain", "IPAData", "IPAMock", "FeatureCore", "FeatureSearch"]),
         .testTarget(
             name: "FeatureSettingsTests",
             dependencies: ["IPADomain", "IPAData", "FeatureCore", "FeatureSettings"]),

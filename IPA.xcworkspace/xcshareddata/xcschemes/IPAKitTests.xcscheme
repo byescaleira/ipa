@@ -76,9 +76,39 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FeatureHomeTests"
-               BuildableName = "FeatureHomeTests"
-               BlueprintName = "FeatureHomeTests"
+               BlueprintIdentifier = "IPAMockTests"
+               BuildableName = "IPAMockTests"
+               BlueprintName = "IPAMockTests"
+               ReferencedContainer = "container:IPAKit">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FeatureAccountsTests"
+               BuildableName = "FeatureAccountsTests"
+               BlueprintName = "FeatureAccountsTests"
+               ReferencedContainer = "container:IPAKit">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FeatureLibraryTests"
+               BuildableName = "FeatureLibraryTests"
+               BlueprintName = "FeatureLibraryTests"
+               ReferencedContainer = "container:IPAKit">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FeatureSearchTests"
+               BuildableName = "FeatureSearchTests"
+               BlueprintName = "FeatureSearchTests"
                ReferencedContainer = "container:IPAKit">
             </BuildableReference>
          </TestableReference>

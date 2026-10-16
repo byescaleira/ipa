@@ -20,25 +20,30 @@ ipa/
 
 | Target | Responsabilidade | Depende de |
 | --- | --- | --- |
-| `IPADomain` | Entidades (`Item`), valores (`YearMonth`), protocolos de repositório, `IPAError`, `AppLanguage`/`String(appLocalized:)`, `RemoteFlag` | nada |
-| `IPAData` | `IPADatabase` (SwiftData + CloudKit `iCloud.ipa`), `IPAStore` (`@ModelActor`), entidades `@Model`, schema versionado, repositórios, `CloudKitFlagSource` | Domain |
+| `IPADomain` | Entidades (`StoreApp`, `Account`, `AppVersion`, `DownloadRecord`), valores (`Storefront` e a tabela das 134 lojas, `DeviceIdentity`, `DownloadProgress`, `EngineAvailability`), regras (`AppQuery`, `PackageName`), protocolos (`StoreCatalog`, `StoreEngine`, `AccountVault`, `DownloadRepository`), `StoreServices`, `DownloadFolder`, `IPAError`, `AppLanguage`/`String(appLocalized:)`, `RemoteFlag` | nada |
+| `IPAData` | `ITunesCatalog` (busca e lookup na API pública do iTunes), `KeychainAccountVault` (contas e identidade do aparelho no Keychain), `IPADatabase` (SwiftData local, sem CloudKit), `IPAStore` (`@ModelActor`), `DownloadEntity`, schema versionado, `SwiftDataDownloadRepository` | Domain |
+| `IPAMock` | `SimulatedStoreEngine` (motor sem rede: código de dois fatores para e-mails com `2fa`, versões e download falsos), `InMemoryAccountVault`, `SampleCatalog`, `SampleApps` | Domain |
 | `IPADesignSystem` | Tokens, estilos, modifiers, layouts e componentes sem regra de negócio | nada |
 | `IPAResource` | Prévia do ícone e animações Lottie embutidas (`IPAResourceAnimation`) | nada |
-| `FeatureCore` | `SessionModel`, navegação (`Route`, `AppSection`, `IPANavigation`, `\.open`, `\.close`), `FeatureFlag`/`FeatureFlags`, guias (`Guide*`), `EmptyStateView`, `MonthPicker`, editor (`EditorStatus`, `EditorActions`, `editorLifecycle`), `errorAlert`, cores retrô, `IPAAnimationView` | Domain, DesignSystem, Resource, Lottie |
-| `FeatureHome` | Início: herói, lista e estado vazio; editor de exemplo (`ItemEditorModel`) | Domain, DesignSystem, FeatureCore |
+| `FeatureCore` | `SessionModel` (repositórios, `StoreServices`, estado do motor), `StorePreferences` (loja e resultados por busca), `AccountsModel` (contas e a ativa), `DownloadCenter` (fila, progresso, licença de app grátis, registros e arquivos), navegação (`Route`, `AppSection`, `IPANavigation`, `\.open`, `\.close`), `FeatureFlag`/`FeatureFlags`, guias (`Guide*`), `EmptyStateView`, `errorAlert`, cores retrô, `IPAAnimationView` | Domain, DesignSystem, Resource, Lottie |
+| `FeatureSearch` | Busca, lojas (`StorefrontScreen`), detalhe do app e versões (`AppModel`, `AppScreen`) | Domain, DesignSystem, FeatureCore |
+| `FeatureLibrary` | Downloads: em andamento e por conta (`LibraryModel`, `LibraryScreen`) | Domain, DesignSystem, FeatureCore |
+| `FeatureAccounts` | Contas e entrada com código de dois fatores (`SignInModel`, `AccountsScreen`, `SignInScreen`) | Domain, DesignSystem, FeatureCore |
 | `FeatureGuides` | `GuideScreen` e páginas dos tutoriais | Domain, DesignSystem, FeatureCore |
-| `FeatureSettings` | Ajustes: Aparência (tema, cor de destaque), Idioma, Guias, Sobre, Desenvolvedor (flags) | Domain, DesignSystem, Resource, FeatureCore |
-| `AppShell` | `IPAWindow`, `MainScreen`, `SectionStack`, `SectionScreen`, `RouteScreen`, `InspectorScreen`, `SplashScreen`/`LaunchProgress`, `DeepLinks`, `IPAServices` | todas as features |
+| `FeatureSettings` | Ajustes: busca, identidade do aparelho, dados, Aparência, Idioma, Guias, Sobre, Desenvolvedor (flags) | Domain, DesignSystem, Resource, FeatureCore |
+| `AppShell` | `IPAWindow` (cria os models da janela), `MainScreen` (quatro abas), `SectionStack`, `SectionScreen`, `RouteScreen`, `InspectorScreen`, `SplashScreen`/`LaunchProgress`, `DeepLinks`, `IPAServices` (banco e `StoreServices` do processo) | todas as features, Data, Mock |
 
-`Item` é o exemplo vertical que nasce com o template (domínio → dados → feature → testes). Renomeie para a primeira entidade real ou remova quando ela existir.
+A spec do produto (telas, motor, etapas) está em [store.md](store.md).
 
 ## Links
 
 | Link | Abre |
 | --- | --- |
-| `ipa://home` | Início |
-| `ipa://items/new` | Editor de item novo |
-| `ipa://items/<id>` | Editor do item |
+| `ipa://search?q=<texto>` | Busca com o texto |
+| `ipa://apps/<id>` | Detalhe do app |
+| `ipa://downloads` | Downloads |
+| `ipa://accounts` | Contas |
+| `ipa://accounts/new` | Entrada de conta |
 | `ipa://settings` | Ajustes |
 
 ## Receita: nova feature

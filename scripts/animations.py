@@ -229,15 +229,33 @@ def dot(color, diameter, opacity=100):
 # --- Animations ------------------------------------------------------------------------------
 
 
-def backup():
-    cloud = icon("icloud.fill", "teal", 84, (150, 84), delay=0, scale=breathe(40, 2, step=45))
-    arrow = icon("arrow.up", "ink", 26, move([(40, (150, 112)), (80, (150, 76))]), alpha=45,
-                 opacity=anim([(40, 0), (50, 100), (76, 100), (88, 0)]))
-    drive = icon("externaldrive.fill", "tint", 44, (236, 128), delay=26)
-    drive["ks"]["s"] = appear(26, overshoot=110, start=40)
-    check = icon("checkmark.circle.fill", "olive", 30, (88, 128), delay=84)
+def direct():
+    phone = icon("iphone", "ink", 84, (86, 90), delay=0, alpha=35)
+    server = icon("server.rack", "teal", 72, (238, 90), delay=12)
+    server["ks"]["s"] = appear(12, overshoot=108, start=40)
+    arrows = icon("arrow.left.arrow.right", "tint", 34, (162, 82), delay=34, scale=breathe(60, 6, step=40))
+    lock = icon("lock.fill", "olive", 26, (162, 124), delay=70)
+    lock["ks"]["s"] = appear(70, overshoot=116, start=40)
+    return [phone, server, arrows, lock]
+
+
+def find():
+    glass = icon("magnifyingglass", "tint", 72, move([(0, (110, 96)), (50, (128, 84)), (100, (110, 96)), (END, (110, 96))]))
+    app = icon("app.fill", "denim", 56, (214, 78), delay=20)
+    app["ks"]["s"] = appear(20, overshoot=108, start=40)
+    arrow = icon("arrow.down.circle.fill", "olive", 34, move([(56, (214, 92)), (92, (214, 136))]), delay=56)
+    arrow["ks"]["s"] = appear(56, overshoot=114, start=40)
+    return [glass, app, arrow]
+
+
+def setup():
+    person = icon("person.crop.circle.fill", "tint", 80, (124, 90), delay=0)
+    person["ks"]["s"] = appear(0, 30, overshoot=106, start=50)
+    gear = icon("gearshape.fill", "denim", 50, (220, 76), delay=26, rotation=anim([(26, -40), (90, 0)]))
+    gear["ks"]["s"] = appear(26, overshoot=110, start=40)
+    check = icon("checkmark.circle.fill", "olive", 28, (236, 128), delay=84)
     check["ks"]["s"] = appear(84, overshoot=116, start=40)
-    return [cloud, arrow, drive, check]
+    return [person, gear, check]
 
 
 def done():
@@ -296,11 +314,13 @@ def widgets():
 
 
 ANIMATIONS = {
-    "backup": backup,
+    "direct": direct,
     "done": done,
     "editor": editor,
+    "find": find,
     "launch": launch,
     "privacy": privacy,
+    "setup": setup,
     "widgets": widgets,
 }
 

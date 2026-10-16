@@ -4,20 +4,31 @@ import Foundation
 enum DeepLink: Equatable {
     case section(AppSection)
     case route(Route, in: AppSection)
+    case search(String)
 
     init(url: URL) {
         guard url.scheme == "ipa" else {
-            self = .section(.home)
+            self = .section(.search)
             return
         }
         let path = url.pathComponents.dropFirst().first
         switch url.host() {
-        case "items":
-            self = .route(.item(id: path == "new" ? nil : path), in: .home)
+        case "search":
+            let query = URLComponents(url: url, resolvingAgainstBaseURL: false)?
+                .queryItems?.first { $0.name == "q" }?.value
+            self = query.map { .search($0) } ?? .section(.search)
+        case "apps":
+            self =
+                path.flatMap { Int64($0) }.map { .route(.app(id: $0), in: .search) }
+                ?? .section(.search)
+        case "downloads":
+            self = .section(.downloads)
+        case "accounts":
+            self = path == "new" ? .route(.signIn, in: .accounts) : .section(.accounts)
         case "settings":
             self = .section(.settings)
         default:
-            self = .section(.home)
+            self = .section(.search)
         }
     }
 

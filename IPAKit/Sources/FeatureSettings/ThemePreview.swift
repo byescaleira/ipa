@@ -54,7 +54,7 @@ private struct ThemeCanvas: View {
                 .frame(maxWidth: .infinity)
                 .background(.groupedRow, in: .rect(cornerRadius: .radiusM))
                 Spacer(minLength: 0)
-                ThemeCanvasTabBar()
+                ThemeCanvasTabBar(sample: sample)
             }
             .padding(.spaceL)
             .foregroundStyle(.primary)
@@ -87,19 +87,24 @@ private struct ThemeCanvasRow: View {
 
 private struct ThemeCanvasTabBar: View {
     @Environment(\.appTint) private var appTint
+    let sample: ThemeSample
 
     var body: some View {
         HStack(spacing: .spaceS) {
             HStack(spacing: .spaceM) {
-                ForEach(AppSection.allCases) { section in
+                ForEach(sample.tabs) { section in
                     Image(systemName: section.systemImage)
-                        .foregroundStyle(section == .home ? appTint : Color.secondary)
+                        .foregroundStyle(section == sample.selected ? appTint : Color.secondary)
                 }
             }
             .padding(.horizontal, .spaceM)
             .padding(.vertical, .spaceM)
             .background(.groupedRow, in: .capsule)
             Spacer(minLength: 0)
+            Image(systemName: AppSection.prominent.systemImage)
+                .foregroundStyle(.secondary)
+                .padding(.spaceM)
+                .background(.groupedRow, in: .circle)
         }
         .font(.icon(.s))
         .shadow(color: .black.opacity(.opacityFill), radius: 6, y: 2)

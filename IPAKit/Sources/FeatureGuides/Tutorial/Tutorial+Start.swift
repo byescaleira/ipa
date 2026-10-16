@@ -7,17 +7,28 @@ extension Guide {
             TutorialPage(
                 animation: .launch, title: "Welcome to IPA",
                 message:
-                    "Everything starts on the Home tab. Settings keeps the choices that are yours."
+                    "Find an app in Search, sign in under Accounts and keep the packages in Downloads."
             ),
             TutorialPage(
-                animation: .done, title: "Two Tabs",
-                message: "Each tab keeps its own place, so you can switch without losing your way.",
+                animation: .find, title: "Find and Keep",
+                message: "Search finds the app; Downloads keeps the packages.",
                 steps: [
                     GuideStep(
-                        "house", color: .retroOrange, title: "Home",
-                        detail: "What matters right now, at a glance."),
+                        "magnifyingglass", color: .retroOrange, title: "Search",
+                        detail: "Any app, in any App Store country."),
                     GuideStep(
-                        "gearshape", color: .retroDenim, title: "Settings",
+                        "arrow.down.circle.fill", color: .retroDenim, title: "Downloads",
+                        detail: "Packages ready to share, one list per account."),
+                ]),
+            TutorialPage(
+                animation: .setup, title: "Yours to Set",
+                message: "Accounts and Settings keep the choices that are yours.",
+                steps: [
+                    GuideStep(
+                        "person.crop.circle.fill", color: .retroOrange, title: "Accounts",
+                        detail: "Your Apple IDs and the one in use."),
+                    GuideStep(
+                        "gearshape.fill", color: .retroDenim, title: "Settings",
                         detail: "Appearance, language, guides and more."),
                 ]),
         ]
@@ -38,11 +49,13 @@ extension Guide {
             TutorialPage(
                 animation: .privacy, title: "Your Data Stays Yours",
                 message:
-                    "Everything lives on your device and in your iCloud. No account, no servers, no third parties."
+                    "Accounts stay in this device's Keychain and packages in the Files app. IPA has no servers of its own."
             ),
             TutorialPage(
-                animation: .backup, title: "Sync with iCloud",
-                message: "Every device signed in to your Apple Account shows the same data."),
+                animation: .direct, title: "Straight to Apple",
+                message:
+                    "Sign-in, versions and downloads go only to Apple's servers, as in the App Store."
+            ),
         ]
     }
 }
