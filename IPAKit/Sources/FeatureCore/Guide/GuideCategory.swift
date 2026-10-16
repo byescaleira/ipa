@@ -1,0 +1,20 @@
+import Foundation
+import IPADomain
+
+public enum GuideCategory: String, CaseIterable, Identifiable, Sendable {
+    case start, sideload, data
+
+    public var id: String { rawValue }
+
+    public var title: String {
+        switch self {
+        case .start: String(appLocalized: "Start Here")
+        case .sideload: String(appLocalized: "Sideloading")
+        case .data: String(appLocalized: "Data and Privacy")
+        }
+    }
+
+    public var guides: [Guide] {
+        Guide.allCases.filter { $0.category == self }
+    }
+}
