@@ -1,7 +1,6 @@
 import FeatureCore
 import IPADesignSystem
 import IPAResource
-import StoreKit
 import SwiftUI
 
 struct AboutValuesSection: View {
@@ -49,7 +48,7 @@ private struct AboutShareButton: View {
     @Environment(AboutModel.self) private var about
 
     var body: some View {
-        if let url = settings.info.appStoreURL {
+        if let url = settings.info.shareURL {
             ShareLink(
                 item: url, message: Text(about.shareMessage),
                 preview: SharePreview(
@@ -75,7 +74,7 @@ struct AboutLinksSection: View {
 
     var body: some View {
         Section {
-            AboutRateRow()
+            if settings.info.reviewURL != nil { AboutRateRow() }
             ForEach(Array(settings.info.links.enumerated()), id: \.element.id) { index, link in
                 Link(destination: link.url) {
                     AboutLinkLabel(
@@ -93,11 +92,10 @@ private struct AboutRateRow: View {
     @Environment(SettingsModel.self) private var settings
     @Environment(\.appTint) private var appTint
     @Environment(\.openURL) private var openURL
-    @Environment(\.requestReview) private var requestReview
 
     var body: some View {
         Button {
-            if let url = settings.info.reviewURL { openURL(url) } else { requestReview() }
+            if let url = settings.info.reviewURL { openURL(url) }
         } label: {
             AboutLinkLabel(title: "Rate IPA", symbol: "star", color: appTint)
         }
@@ -113,6 +111,21 @@ struct AboutCreditsSection: View {
                 "Made by one person in Brazil",
                 detail: "Every message reaches the person who writes the code.", symbol: "person",
                 color: .retroMustard)
+            if let url = about.ipatoolURL {
+                Link(destination: url) {
+                    AboutLinkLabel(
+                        title: "ipatool by Majd Alfhaily",
+                        detail: "The App Store protocol IPA speaks · MIT License",
+                        symbol: "terminal", color: .retroTeal)
+                }
+            }
+            if let url = about.dlipaURL {
+                Link(destination: url) {
+                    AboutLinkLabel(
+                        title: "DLiPA by Ahmed Bafkir", detail: "The app IPA rebuilds",
+                        symbol: "arrow.down.app", color: .retroDenim)
+                }
+            }
             if let url = about.lottieURL {
                 Link(destination: url) {
                     AboutLinkLabel(

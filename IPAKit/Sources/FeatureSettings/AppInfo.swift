@@ -31,4 +31,6 @@ public struct AppInfo: Sendable {
     }
 
     var hasHelp: Bool { reviewURL != nil || supportURL != nil || helpURL != nil }
+
+    var shareURL: URL? { appStoreURL ?? websiteURL }
 }

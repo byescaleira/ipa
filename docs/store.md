@@ -64,16 +64,18 @@ Quatro abas (`TabView` `.sidebarAdaptable`), como no DLiPA: **Search**, **Downlo
 
 ### Ajustes
 
-- **Search**: "Results per search" com escolhas 25, 50, 100, 200 (padrão 50; o iTunes aceita até 200). Substitui o "Search Limit 0" do DLiPA.
-- **Device Identity**: o identificador que a Apple vê ("MAC" gerado localmente) e "Generate New Identity", com confirmação explicando que as contas precisam entrar de novo.
-- **Data**: espaço ocupado pelos downloads e "Erase Everything" (apaga contas, downloads e preferências), com confirmação.
-- Aparência, Idioma, Guias e Sobre do template; o Sobre credita o ipatool (Majd Alfhaily) e o DLiPA (Ahmed Bafkir).
+- **Store › Search**: "Results per Search" com escolhas 25, 50, 100, 200 (padrão 50; o iTunes aceita até 200). Substitui o "Search Limit 0" do DLiPA.
+- **Store › Device Identity**: herói com o identificador que a Apple vê ("MAC" gerado localmente) e "Generate New Identity", com confirmação (`GuideSheet`) explicando que as contas precisam entrar de novo; ao confirmar, as contas saem do Keychain.
+- **Store › Store Engine**: estado do motor ("Ready", "Needs JIT", "Not Available") num chip, "How to Turn On JIT" (guia `.jit`) e "Check Again" quando falta JIT.
+- **Data › Storage**: espaço ocupado pelos downloads no herói e "Erase Everything" (apaga contas, downloads, preferências e a identidade), com confirmação em duas páginas.
+- Aparência, Idioma, Guias e Sobre do template; o Sobre credita o ipatool (Majd Alfhaily) e o DLiPA (Ahmed Bafkir) e tem o código-fonte (`byescaleira/ipa`). As linhas da loja só existem na janela (a cena `Settings` do Mac não tem sessão).
 
 ### Guias
 
-- **Start**: o que o app faz, em três páginas (buscar, entrar, baixar).
-- **JIT**: por que o motor precisa de JIT e como ativar com o StikDebug.
-- **Install an IPA**: AltStore/SideStore, AirDrop para outro aparelho, Sideloadly no computador.
+- **Meet IPA**: buscar, entrar, baixar (três páginas).
+- **Turn On JIT**: por que o motor precisa de JIT, como ativar com o StikDebug (passos e link) e o que funciona sem JIT.
+- **Install an IPA**: AltStore/SideStore (passos e link), AirDrop para outro aparelho, Sideloadly no computador (passos e link).
+- **Privacy**: onde ficam contas, identidade e pacotes; o app só fala com a Apple.
 
 ## Motor (`IPAEngine`)
 
@@ -102,5 +104,5 @@ Quatro abas (`TabView` `.sidebarAdaptable`), como no DLiPA: **Search**, **Downlo
 | 2.1 | Motor: ponte Go, `scripts/ipatool.sh`, `IPAToolCore.xcframework` (iOS, simulador, macOS), `IPAToolEngine`, `JITStatus` |
 | 2.2 | Busca, lojas, detalhe do app e versões |
 | 2.3 | Downloads e contas — feita |
-| 2.4 | Ajustes e guias |
+| 2.4 | Ajustes e guias — feita |
 | 3 | Integração, suíte inteira, verificação no simulador e no Mac, README e build para sideload |

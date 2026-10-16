@@ -40,4 +40,24 @@ struct SettingsModelTests {
         #expect(info.version == "1.2 (7)")
         #expect(info.links.map(\.kind) == [.privacy])
     }
+
+    @Test func resetPutsTheLookBackToDefaults() throws {
+        let settings = SettingsModel(defaults: try defaults(), languageSetting: LanguageSetting())
+        settings.appearance = .dark
+        settings.tint = RetroColor.teal.hex
+        settings.language = .portuguese
+        settings.reset()
+        #expect(settings.appearance == .system)
+        #expect(settings.tint == RetroColor.default.hex)
+        #expect(settings.language == .system)
+    }
+
+    @Test func aboutListsTheRepositoryOnceAndSharesIt() throws {
+        let repository = "https://github.com/byescaleira/ipa"
+        let info = AppInfo(info: ["IPAWebsiteURL": repository, "IPAHelpURL": repository])
+        #expect(info.links.map(\.kind) == [.website])
+        #expect(info.shareURL == URL(string: repository))
+        let store = AppInfo(info: ["IPAAppStoreID": "42", "IPAWebsiteURL": repository])
+        #expect(store.shareURL == URL(string: "https://apps.apple.com/app/id42"))
+    }
 }

@@ -6,7 +6,6 @@ O que falta, por prioridade. Itens concluídos saem daqui; o motivo das decisõe
 
 - **[P1] Ícone próprio.** Trocar `IPAIcon.icon` pelo ícone do app e rodar `scripts/icons.sh`.
 - **[P1] Build para sideload.** Script que gera o `.ipa` sem assinatura (Release, iOS) para AltStore/SideStore, e o `.app` do Mac assinado com Developer ID e `allow-jit`.
-- **[P2] Links do Sobre.** Preencher `IPAHelpURL` e `IPAWebsiteURL` com o repositório `byescaleira/ipa`.
 
 ## Produto
 
@@ -15,6 +14,8 @@ O que falta, por prioridade. Itens concluídos saem daqui; o motivo das decisõe
 - **[P2] Mac como motor do iPhone.** Sem JIT, o iPhone poderia pedir ao Mac que entre e baixe e receber o `.ipa` pela rede local.
 - **[P2] Download em segundo plano.** Hoje o download roda numa `Task` do `DownloadCenter` e para quando o sistema suspende o app; o rodapé de In Progress pede para manter o IPA aberto. Com o motor real (2.1), avaliar `URLSession` em segundo plano para o arquivo e uma Live Activity com a barra.
 - **[P3] Miniatura do tema igual ao herói de Downloads.** O herói ficou "ON THIS DEVICE" · "5 packages" · "412.5 MB used"; a `ThemePreview` (etapa 2.4) ainda mostra "Packages on this device" e "5".
+
+- **[P2] Progresso no hub de guias.** A receita do Cashly tem o cartão "x of y guides done" e "Next for you", que dependem de registrar a conclusão de cada guia; o IPA ainda não grava isso (sem eventos nem XP), então o hub mostra só as categorias.
 - **[P3] Compras da conta.** O ipatool lista os apps já obtidos (`list-purchases`); dá uma seção "Purchased" por conta.
 
 ## Motor e revisão
