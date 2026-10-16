@@ -49,6 +49,7 @@ private struct LibraryHeroSection: View {
                     Chip(library.heroChip, color: appTint, shape: .capsule)
                     Text(verbatim: library.heroTitle)
                         .font(.amountHero)
+                        .foregroundStyle(Color.primary)
                         .contentTransition(.numericText(value: Double(library.packageCount)))
                         .amountLine()
                     Text(verbatim: library.heroCaption)
