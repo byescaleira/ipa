@@ -1,0 +1,16 @@
+services:
+  ipa-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ipa-server
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      IPA_SERVER_TOKEN: "${IPA_SERVER_TOKEN:?set IPA_SERVER_TOKEN in the environment or a .env file}"
+    volumes:
+      - ipa-cache:/var/lib/ipa-server
+
+volumes:
+  ipa-cache:

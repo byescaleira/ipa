@@ -60,11 +60,17 @@ IPA_SERVER_TOKEN=... engine/build/ipa-server
 ```
 
 Imagem de container (clona o ipatool no commit fixo, não depende do `.ipatool`
-local):
+local; roda como usuário não-root, com `HEALTHCHECK` e um volume para o cache):
 
 ```bash
 scripts/server.sh --docker
 docker run -p 8080:8080 -e IPA_SERVER_TOKEN=... -v ipa-cache:/var/lib/ipa-server ipa-server
+```
+
+Ou com Compose (reinício automático e volume persistente no VPS):
+
+```bash
+IPA_SERVER_TOKEN=... docker compose up -d --build
 ```
 
 Exponha sob HTTPS (proxy reverso ou túnel). Para servir de casa sem VPN no

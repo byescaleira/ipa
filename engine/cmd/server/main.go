@@ -7,6 +7,7 @@ import (
 	"errors"
 	"io"
 	"log"
+	"net"
 	"net/http"
 	"net/http/cookiejar"
 	"os"
@@ -469,10 +470,30 @@ func (s server) handleDownload(w http.ResponseWriter, r *http.Request) {
 	_, _ = io.Copy(w, file)
 }
 
+func healthCheck(address string) {
+	_, port, err := net.SplitHostPort(address)
+	if err != nil || port == "" {
+		port = "8080"
+	}
+	client := &http.Client{Timeout: 4 * time.Second}
+	resp, err := client.Get("http://127.0.0.1:" + port + "/health")
+	if err != nil {
+		os.Exit(1)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		os.Exit(1)
+	}
+}
+
 func main() {
 	address := os.Getenv("IPA_SERVER_ADDRESS")
 	if address == "" {
 		address = ":8080"
+	}
+	if len(os.Args) > 1 && os.Args[1] == "-check" {
+		healthCheck(address)
+		return
 	}
 	cache := os.Getenv("IPA_SERVER_CACHE")
 	if cache == "" {
