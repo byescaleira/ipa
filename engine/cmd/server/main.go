@@ -255,6 +255,29 @@ func (s server) handleVersion(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (s server) handlePurchase(w http.ResponseWriter, r *http.Request) {
+	if !s.authorize(w, r) {
+		return
+	}
+	var input appRequest
+	if !decode(w, r, &input) {
+		return
+	}
+	store, account, app, err := input.resolve(s)
+	if err != nil {
+		writeError(w, err)
+		return
+	}
+	err = store.Purchase(appstore.PurchaseInput{
+		Account: account, App: app, Platform: appstore.PlatformIPhone,
+	})
+	if err != nil && !errors.Is(err, appstore.ErrLicenseAlreadyExists) {
+		writeError(w, err)
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{"ok": true})
+}
+
 func (s server) handleDownload(w http.ResponseWriter, r *http.Request) {
 	if !s.authorize(w, r) {
 		return
@@ -355,6 +378,7 @@ func main() {
 	mux.HandleFunc("POST /v1/login", srv.handleLogin)
 	mux.HandleFunc("POST /v1/versions", srv.handleVersions)
 	mux.HandleFunc("POST /v1/version", srv.handleVersion)
+	mux.HandleFunc("POST /v1/purchase", srv.handlePurchase)
 	mux.HandleFunc("POST /v1/download", srv.handleDownload)
 
 	httpServer := &http.Server{

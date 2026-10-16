@@ -20,12 +20,13 @@ public final class IPAServices {
     }
 
     private static func engine(vault: any AccountVault) -> any StoreEngine {
+        let local: any StoreEngine
         #if os(iOS)
-            if isSimulator { return SimulatedStoreEngine(vault: vault) }
-            return IPAToolEngine(vault: vault)
+            local = isSimulator ? SimulatedStoreEngine(vault: vault) : IPAToolEngine(vault: vault)
         #else
-            return UnavailableStoreEngine()
+            local = UnavailableStoreEngine()
         #endif
+        return RoutingStoreEngine(configStore: ServerConfigStore(), vault: vault, local: local)
     }
 
     private static var isSimulator: Bool {

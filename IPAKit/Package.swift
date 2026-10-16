@@ -66,6 +66,8 @@ let package = Package(
         .testTarget(name: "IPAResourceTests", dependencies: ["IPAResource"]),
         .testTarget(name: "IPAMockTests", dependencies: ["IPADomain", "IPAMock"]),
         .testTarget(
+            name: "IPAEngineTests", dependencies: ["IPADomain", "IPAEngine", "IPAMock"]),
+        .testTarget(
             name: "FeatureCoreTests",
             dependencies: [
                 "IPADomain", "IPAData", "IPADesignSystem", "IPAMock", "IPAResource",
