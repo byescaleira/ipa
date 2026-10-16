@@ -43,13 +43,22 @@ build_unicorn() {
   fi
   tar -xzf "$tarball" -C "$out"
   patch -d "$out/unicorn-$unicorn_version" -p1 < "$ipatool/tools/patches/unicorn-ios.patch"
+  # ipatool's patch targets TrollStore builds (dynamic-codesigning), where the JIT
+  # buffer is plain memory flipped to executable with mprotect. Our app enables JIT
+  # by running debugged (CS_DEBUGGED), and this Unicorn build defines USE_MAP_JIT, so
+  # the buffer is a MAP_JIT region: it must keep PROT_EXEC in its mapping and be
+  # flipped with pthread_jit_write_protect_np, since mprotect is rejected on MAP_JIT
+  # memory. Restore the executable mapping and the pthread JIT toggle.
+  local tac="$out/unicorn-$unicorn_version/qemu/accel/tcg/translate-all.c"
+  perl -0pi -e 's/int prot = PROT_WRITE \| PROT_READ;/int prot = PROT_WRITE | PROT_READ | PROT_EXEC;/' "$tac"
+  perl -0pi -e 's{/\* iOS CLI processes cannot use MAP_JIT.*?void ipatool_jit_write_protect\(struct uc_struct \*uc, int enabled\)\s*\{.*?\n\}}{#include <dlfcn.h>\nvoid ipatool_jit_write_protect(struct uc_struct *uc, int enabled)\n\{\n    (void)uc;\n    static void (*toggle)(int);\n    static int resolved;\n    if (!resolved) \{\n        toggle = (void (*)(int))dlsym(RTLD_DEFAULT, "pthread_jit_write_protect_np");\n        resolved = 1;\n    \}\n    if (toggle) \{\n        toggle(enabled);\n    \}\n\}}s' "$tac"
   local sdkroot
   sdkroot=$(xcrun --sdk "$sdk" --show-sdk-path)
   ARCHFLAGS='-arch arm64' SDKROOT="$sdkroot" cmake -S "$out/unicorn-$unicorn_version" -B "$out/out" \
     -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT="$sdkroot" \
     -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET="$deployment" \
     -DCMAKE_C_FLAGS="-target $target" -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_SHARED_LIBS=OFF -DUNICORN_ARCH=x86 -DUNICORN_BUILD_TESTS=OFF -DUNICORN_INSTALL=OFF >/dev/null
+    -DBUILD_SHARED_LIBS=OFF -DUNICORN_ARCH=aarch64 -DUNICORN_BUILD_TESTS=OFF -DUNICORN_INSTALL=OFF >/dev/null
   cmake --build "$out/out" --parallel "$(sysctl -n hw.ncpu)" >/dev/null
 }
 
