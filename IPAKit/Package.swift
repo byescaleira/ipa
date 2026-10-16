@@ -20,6 +20,16 @@ let package = Package(
         .target(name: "IPADesignSystem"),
         .target(name: "IPAResource", resources: [.process("Assets")]),
         .target(name: "IPAMock", dependencies: ["IPADomain"]),
+        .binaryTarget(name: "IPAToolCore", path: "Frameworks/IPAToolCore.xcframework"),
+        .target(
+            name: "IPAEngine",
+            dependencies: [
+                "IPADomain",
+                .target(name: "IPAToolCore", condition: .when(platforms: [.iOS])),
+            ],
+            linkerSettings: [
+                .unsafeFlags(["-Xlinker", "-export_dynamic"], .when(platforms: [.iOS]))
+            ]),
         .target(
             name: "FeatureCore",
             dependencies: [
@@ -44,7 +54,7 @@ let package = Package(
         .target(
             name: "AppShell",
             dependencies: [
-                "IPADomain", "IPAData", "IPADesignSystem", "IPAMock", "FeatureCore",
+                "IPADomain", "IPAData", "IPADesignSystem", "IPAEngine", "IPAMock", "FeatureCore",
                 "FeatureAccounts", "FeatureGuides", "FeatureLibrary", "FeatureSearch",
                 "FeatureSettings",
             ]),

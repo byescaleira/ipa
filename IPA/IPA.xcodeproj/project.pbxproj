@@ -280,6 +280,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = IPAIcon;
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = "-Wl,-force_load,$(SRCROOT)/../IPAKit/Frameworks/libunicorn-ios.a";
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "-Wl,-force_load,$(SRCROOT)/../IPAKit/Frameworks/libunicorn-sim.a";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = IPA/IPA.entitlements;
@@ -330,6 +332,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = IPAIcon;
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = "-Wl,-force_load,$(SRCROOT)/../IPAKit/Frameworks/libunicorn-ios.a";
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "-Wl,-force_load,$(SRCROOT)/../IPAKit/Frameworks/libunicorn-sim.a";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = IPA/IPA.entitlements;
