@@ -1,15 +1,15 @@
 # Roadmap
 
-O que o IPA vai ganhar, por fase. Cada item diz o que entrega e a tecnologia; os pré-requisitos técnicos ficam no [backlog.md](backlog.md).
+O que o IPA vai ganhar, por fase. A spec do produto está em [store.md](store.md); os pré-requisitos técnicos ficam no [backlog.md](backlog.md).
 
 ## Fase 0: base (pronta)
 
 - Estrutura por feature, design system, Ajustes (Aparência, Idioma, Guias, Sobre), guias com Lottie, flags, deep links, dez idiomas, lint, scripts e CI.
 
-## Fase 1: primeira feature
+## Fase 1: reconstrução do DLiPA
 
-- A definir com o usuário: spec em `docs/`, plano em fases e crítica antes de desenhar telas.
+- Busca em qualquer loja, contas com Apple ID, versões antigas, licença de apps grátis e download do `.ipa`, com o motor do ipatool embutido. Etapas em [store.md](store.md#etapas).
 
 ## Depois
 
-- Widgets e controles (WidgetKit), App Intents, notificações, assinatura (StoreKit), onboarding, conforme `references/` da skill `apple-sdd`.
+- Instalar no aparelho, motor no visionOS, Mac como motor do iPhone, compras da conta.
