@@ -16,9 +16,11 @@ Referências: [Distribute with AltStore PAL](https://faq.altstore.io/developers/
 | 6 | Xcode Cloud, workflow com Archive iOS (scheme **Production**, App Store Connect) na `feature/pal-notarization`, ambiente "Latest Release" (o upload local com o Xcode beta falha com o erro 90534) | usuário | build 1.0 (2) no TestFlight em 16/10/2026 (o 1.0 (1), com o Lottie cortado e sem a assinatura da Airbnb, voltou como Invalid Binary) |
 | 7 | Na página do app: preencher os metadados (abaixo), App Review › Review Type › **Notarization**, escolher o build 1.0 (2) e enviar | usuário | reenviado em 16/10/2026 com o build 2 (Waiting for Review), com as artes de `docs/store` |
 | 8 | Depois da aprovação (o artigo citou cerca de 30 h): pegar o **ADP ID** do build e o **Apple ID** do app (App Information) | usuário | — |
-| 9 | `POST https://api.altstore.io/adps` com o ADP ID, `GET …/adps/<id>` até ter o `downloadURL`, baixar o pacote e hospedar sem alterar nenhum arquivo em `byescaleira/apps/pal/ipa/<versão>/` | Claude | — |
-| 10 | Criar `pal.json` (source separado do `source.json`) com `marketplaceID` e o `downloadURL` apontando para o `manifest.json` hospedado | Claude | — |
-| 11 | Adicionar `https://byescaleira.github.io/apps/pal.json` no AltStore PAL | usuário | — |
+| 9 | Criar a campanha no Patreon em **BRL** com um tier de **R$ 24,90/mês** para o IPA; passar a URL da campanha e o ID do tier | usuário | — |
+| 10 | `POST https://api.altstore.io/adps` com o ADP ID, `GET …/adps/<id>` até ter o pacote e baixar sem alterar nenhum arquivo (`manifest.json`, `signature` e os `.ipa`) | Claude | — |
+| 11 | Anexar os arquivos do pacote a um post do Patreon visível só para o tier do IPA e publicar; a URL do post vira o `downloadURL` | usuário | — |
+| 12 | Criar `pal.json` (source separado do `source.json`) com `marketplaceID`, `patreonURL` e, no app, `patreon: { pledge: 24.90, currency: "BRL", tiers: [<ID>] }` | Claude | — |
+| 13 | Adicionar `https://byescaleira.github.io/apps/pal.json` no AltStore PAL | usuário | — |
 
 ## Dados do app (passo 5)
 
@@ -85,4 +87,7 @@ ipa,app store,bundle id,app id,storefront,versions,sideload,altstore,developer,s
 - O build notarizado usa o `UnavailableStoreEngine` (Release): busca e detalhes funcionam; login e download dizem que o motor ainda não está disponível. A descrição acima fala só do que o build faz (regra 2 do AltStore PAL: os metadados precisam refletir o app); quando o motor chegar, a descrição ganha contas e downloads.
 - O source do PAL é separado (`pal.json`): o AltStore recusa misturar apps notarizados e de sideload no mesmo source.
 - Cada versão nova: subir `CURRENT_PROJECT_VERSION` (e `MARKETING_VERSION` quando mudar), enviar, notarizar, processar o ADP e acrescentar a versão no `pal.json`.
-- Taxas: a Apple cobra a Core Technology Commission de 5% sobre vendas digitais; o IPA é grátis e sem compras.
+- Cobrança: no AltStore PAL não existe preço avulso; o app é liberado para apoiadores do Patreon e o valor mínimo aparece como preço mensal. O AltStore não cobra comissão; o Patreon cobra a dele e a Apple, a Core Technology Commission de 5% sobre vendas digitais. O preço no App Store Connect fica grátis, porque só vale para a App Store.
+- Quem deixa de apoiar perde atualizações e o app expira em 7 dias.
+- O sideload sem assinatura (`source.json`) continua grátis.
+- Digital Services Act: o App Store Connect marca a conta como "non-trader". Vender para a UE tende a exigir status de trader (nome, endereço, telefone e e-mail públicos); fica pendente, por decisão do usuário.

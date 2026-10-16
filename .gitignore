@@ -68,3 +68,4 @@ fastlane/test_output
 
 # App Store screenshots resized for the 6.3-inch slot by scripts/store-screenshots.py
 docs/store/screenshots/*-6.3/
+.DS_Store
