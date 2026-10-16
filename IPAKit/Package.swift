@@ -14,7 +14,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Lottie",
-            url: "https://github.com/airbnb/lottie-ios/releases/download/4.6.1/Lottie.xcframework.zip",
+            url: "https://github.com/airbnb/lottie-ios/releases/download/"
+                + "4.6.1/Lottie.xcframework.zip",
             checksum: "03d3f3b085da9479bcab7b0ad4b6d75a88425d27bf3c7582698fddce14c9181f"),
         .target(name: "IPADomain"),
         .target(name: "IPAData", dependencies: ["IPADomain"]),
