@@ -5,7 +5,11 @@
       "eyebrow": "IPA",
       "title": "The App Store,<br><em>decoded.</em>",
       "subtitle": "Every country. Every detail. One search.",
-      "badges": ["<b>134</b> App Store countries", "<b>Zero</b> servers, analytics or ads", "<b>Free</b>, no in-app purchases"],
+      "badges": [
+        "<b>134</b> App Store countries",
+        "<b>Zero</b> servers, analytics or ads",
+        "<b>Free</b>, no in-app purchases"
+      ],
       "footer": "Built on DLiPA and ipatool"
     },
     {
@@ -49,6 +53,41 @@
       "eyebrow": "Privacy",
       "title": "Private<br><em>by design.</em>",
       "subtitle": "No servers, no analytics, no ads. Only Apple's public search."
+    }
+  ],
+  "en-US-ipad": [
+    {
+      "name": "hero",
+      "eyebrow": "IPA",
+      "title": "The App Store,<br><em>decoded.</em>",
+      "subtitle": "Every country. Every detail. One search.",
+      "badges": [
+        "<b>134</b> App Store countries",
+        "<b>Zero</b> servers, analytics or ads",
+        "<b>Free</b>, no in-app purchases"
+      ],
+      "footer": "Built on DLiPA and ipatool"
+    },
+    {
+      "name": "search",
+      "capture": "search.png",
+      "eyebrow": "Search",
+      "title": "Find any app,<br><em>any way.</em>",
+      "subtitle": "By name, bundle ID, App Store link or app ID."
+    },
+    {
+      "name": "details",
+      "capture": "app.png",
+      "eyebrow": "Details",
+      "title": "Everything<br><em>at a glance.</em>",
+      "subtitle": "Version, minimum iOS, size, price and every identifier, one tap to copy."
+    },
+    {
+      "name": "appearance",
+      "capture": "appearance.png",
+      "eyebrow": "Appearance",
+      "title": "Make it<br><em>yours.</em>",
+      "subtitle": "Light, dark or automatic, with 26 accent colors."
     }
   ]
 }
