@@ -11,10 +11,8 @@ let package = Package(
             name: "IPAKit",
             targets: ["IPADomain", "IPAData", "FeatureCore", "FeatureSettings", "AppShell"]),
     ],
-    dependencies: [
-        .package(url: "https://github.com/airbnb/lottie-spm.git", from: "4.5.0")
-    ],
     targets: [
+        .binaryTarget(name: "Lottie", path: "Vendor/Lottie.xcframework"),
         .target(name: "IPADomain"),
         .target(name: "IPAData", dependencies: ["IPADomain"]),
         .target(name: "IPADesignSystem"),
@@ -24,7 +22,7 @@ let package = Package(
             name: "FeatureCore",
             dependencies: [
                 "IPADomain", "IPADesignSystem", "IPAResource",
-                .product(name: "Lottie", package: "lottie-spm"),
+                "Lottie",
             ]),
         .target(
             name: "FeatureAccounts",
