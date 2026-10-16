@@ -1512,7 +1512,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adicionar Conta"
+            "value" : "Adicionar conta"
           }
         },
         "ru" : {
@@ -2730,7 +2730,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cancelar Download"
+            "value" : "Cancelar download"
           }
         },
         "ru" : {
@@ -5096,7 +5096,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "無料アプリのどのバージョンでもダウンロードできます。ダウンロードには各.ipaがアカウントごとに残ります。"
+            "value" : "無料Appのどのバージョンでもダウンロードできます。ダウンロードには各.ipaがアカウントごとに残ります。"
           }
         },
         "ko" : {
@@ -7429,7 +7429,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Em Andamento"
+            "value" : "Em andamento"
           }
         },
         "ru" : {
@@ -7707,7 +7707,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "アプリに署名してホーム画面に追加します。"
+            "value" : "Appに署名してホーム画面に追加します。"
           }
         },
         "ko" : {
@@ -8647,7 +8647,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nome ou ID do bundle"
+            "value" : "Nome ou bundle ID"
           }
         },
         "ru" : {
@@ -9360,64 +9360,6 @@
         }
       }
     },
-    "Not available on this device" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Auf diesem Gerät nicht verfügbar"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No disponible en este dispositivo"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Indisponible sur cet appareil"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Non disponibile su questo dispositivo"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "このデバイスでは利用できません"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "이 기기에서는 사용할 수 없음"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Indisponível neste aparelho"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Недоступно на этом устройстве"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "在本设备上不可用"
-          }
-        }
-      }
-    },
     "Nothing about you is sold, shared or measured." : {
       "localizations" : {
         "de" : {
@@ -9691,7 +9633,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neste Aparelho"
+            "value" : "Neste aparelho"
           }
         },
         "ru" : {
@@ -10155,7 +10097,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Outras Contas"
+            "value" : "Outras contas"
           }
         },
         "ru" : {
@@ -11431,7 +11373,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remover Esta Conta"
+            "value" : "Remover esta conta"
           }
         },
         "ru" : {
@@ -11663,7 +11605,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tentar de Novo"
+            "value" : "Tentar de novo"
           }
         },
         "ru" : {
@@ -12127,7 +12069,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buscar Apps"
+            "value" : "Buscar apps"
           }
         },
         "ru" : {
@@ -12173,7 +12115,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ここでも検索とアプリの詳細は使えます。サインインとダウンロードはMac、iPhone、iPadで行ってください。"
+            "value" : "ここでも検索とAppの詳細は使えます。サインインとダウンロードはMac、iPhone、iPadで行ってください。"
           }
         },
         "ko" : {
@@ -12231,7 +12173,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "検索とアプリの詳細はそのまま使えます。サインインとダウンロードは待機し、IPAは失敗する代わりに理由を表示します。"
+            "value" : "検索とAppの詳細はそのまま使えます。サインインとダウンロードは待機し、IPAは失敗する代わりに理由を表示します。"
           }
         },
         "ko" : {
@@ -12314,64 +12256,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "搜索 YouTube"
-          }
-        }
-      }
-    },
-    "Search works here. Sign in and download on a Mac or on an iPhone with JIT." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Suche funktioniert hier. Anmelden und laden kannst du auf einem Mac oder einem iPhone mit JIT."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La búsqueda funciona aquí. Inicia sesión y descarga en un Mac o en un iPhone con JIT."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La recherche fonctionne ici. Connectez-vous et téléchargez sur un Mac ou un iPhone avec JIT."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La ricerca funziona qui. Accedi e scarica su un Mac o su un iPhone con il JIT."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ここでは検索が使えます。サインインとダウンロードはMacか、JITを有効にしたiPhoneで行ってください。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "여기서는 검색을 사용할 수 있습니다. 로그인과 다운로드는 Mac 또는 JIT가 켜진 iPhone에서 하세요."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A busca funciona aqui. Entre e baixe num Mac ou num iPhone com JIT."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Здесь работает поиск. Входите и загружайте на Mac или на iPhone с JIT."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "这里可以搜索。请在 Mac 或已开启 JIT 的 iPhone 上登录和下载。"
           }
         }
       }
@@ -12956,6 +12840,64 @@
         }
       }
     },
+    "Show in Finder" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Im Finder zeigen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar en el Finder"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher dans le Finder"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra nel Finder"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finderに表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finder에서 보기"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar no Finder"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать в Finder"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在访达中显示"
+          }
+        }
+      }
+    },
     "Sideloading" : {
       "localizations" : {
         "de" : {
@@ -13345,7 +13287,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entre com um Apple ID para ver versões e baixar apps grátis. A senha fica no Keychain deste aparelho."
+            "value" : "Entre com um Apple ID para ver versões e baixar apps grátis. A senha fica nas Chaves deste aparelho."
           }
         },
         "ru" : {
@@ -13461,7 +13403,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entrada e downloads vão só para os servidores da Apple."
+            "value" : "Login e downloads vão só para os servidores da Apple."
           }
         },
         "ru" : {
@@ -13474,122 +13416,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "登录和下载只连接 Apple 的服务器。"
-          }
-        }
-      }
-    },
-    "Sign-in and downloads wait until JIT is on." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anmeldung und Downloads warten, bis JIT aktiv ist."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "El inicio de sesión y las descargas esperan a que el JIT esté activo."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La connexion et les téléchargements attendent l'activation du JIT."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accesso e download aspettano che il JIT sia attivo."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "サインインとダウンロードはJITがオンになるまで待機します。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "로그인과 다운로드는 JIT가 켜질 때까지 대기합니다."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Login e downloads esperam o JIT ser ativado."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вход и загрузки ждут включения JIT."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "登录和下载会等到 JIT 开启。"
-          }
-        }
-      }
-    },
-    "Sign-in and downloads work on this device." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anmeldung und Downloads funktionieren auf diesem Gerät."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "El inicio de sesión y las descargas funcionan en este dispositivo."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La connexion et les téléchargements fonctionnent sur cet appareil."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accesso e download funzionano su questo dispositivo."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "このデバイスでサインインとダウンロードが使えます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "이 기기에서 로그인과 다운로드가 작동합니다."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Login e downloads funcionam neste aparelho."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вход и загрузки работают на этом устройстве."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "此设备可以登录和下载。"
           }
         }
       }
@@ -13635,7 +13461,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entrada, versões e downloads vão só para os servidores da Apple, como na App Store."
+            "value" : "Login, versões e downloads vão só para os servidores da Apple, como na App Store."
           }
         },
         "ru" : {
@@ -13648,6 +13474,64 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "登录、版本和下载与 App Store 一样，只连接 Apple 的服务器。"
+          }
+        }
+      }
+    },
+    "Sign-in, versions and downloads wait until JIT is on." : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login, versões e downloads esperam o JIT ser ativado."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El inicio de sesión, las versiones y las descargas esperan a que JIT esté activado."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anmeldung, Versionen und Downloads warten, bis JIT aktiv ist."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion, les versions et les téléchargements attendent l’activation du JIT."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accesso, versioni e download aspettano che il JIT sia attivo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインイン、バージョン、ダウンロードはJITがオンになるまで待機します。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "로그인, 버전, 다운로드는 JIT가 켜질 때까지 기다립니다."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "登录、版本和下载会等到 JIT 打开后再进行。"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вход, версии и загрузки ждут включения JIT."
           }
         }
       }
@@ -13693,7 +13577,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Entrada, versões e downloads funcionam neste aparelho."
+            "value" : "Login, versões e downloads funcionam neste aparelho."
           }
         },
         "ru" : {
@@ -14273,7 +14157,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Motor da Loja"
+            "value" : "Motor da loja"
           }
         },
         "ru" : {
@@ -15305,7 +15189,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "IPAが作り直している元のアプリ"
+            "value" : "IPAが作り直している元のApp"
           }
         },
         "ko" : {
@@ -15549,7 +15433,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A senha e a sessão saem do Keychain deste aparelho. Você pode entrar de novo quando quiser."
+            "value" : "A senha e a sessão saem das Chaves deste aparelho. Você pode entrar de novo quando quiser."
           }
         },
         "ru" : {
@@ -16494,64 +16378,6 @@
         }
       }
     },
-    "Turn on JIT for IPA with StikDebug, then come back. Search works without it." : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aktiviere JIT für IPA mit StikDebug und komm zurück. Die Suche funktioniert ohne."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activa el JIT para IPA con StikDebug y vuelve. La búsqueda funciona sin él."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activez le JIT pour IPA avec StikDebug, puis revenez. La recherche fonctionne sans."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Attiva il JIT per IPA con StikDebug, poi torna qui. La ricerca funziona anche senza."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "StikDebugでIPAのJITをオンにしてから戻ってください。検索はJITなしで使えます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "StikDebug로 IPA의 JIT를 켠 다음 돌아오세요. 검색은 JIT 없이 작동합니다."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ative o JIT para o IPA com o StikDebug e volte. A busca funciona sem ele."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Включите JIT для IPA в StikDebug и вернитесь. Поиск работает и без него."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "用 StikDebug 为 IPA 开启 JIT，然后回来。搜索无需 JIT。"
-          }
-        }
-      }
-    },
     "Turn on JIT with StikDebug, then check again. Search and app details work without it." : {
       "localizations" : {
         "de" : {
@@ -16581,7 +16407,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "StikDebugでJITをオンにしてから、もう一度確認してください。検索とアプリの詳細はJITなしでも使えます。"
+            "value" : "StikDebugでJITをオンにしてから、もう一度確認してください。検索とAppの詳細はJITなしでも使えます。"
           }
         },
         "ko" : {
@@ -16709,7 +16535,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Digite um nome, um bundle ID ou um link da App Store. A bandeira na Busca escolhe o país."
+            "value" : "Digite um nome, um bundle ID ou um link da App Store. A bandeira em Buscar escolhe o país."
           }
         },
         "ru" : {
@@ -16825,7 +16651,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usar Esta Conta"
+            "value" : "Usar esta conta"
           }
         },
         "ru" : {
@@ -16883,7 +16709,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usar Outro Apple ID"
+            "value" : "Usar outro Apple ID"
           }
         },
         "ru" : {
@@ -16941,7 +16767,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Código de Verificação"
+            "value" : "Código de verificação"
           }
         },
         "ru" : {
@@ -17244,6 +17070,64 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "版本 ID %@"
+          }
+        }
+      }
+    },
+    "Version ID %@, loading" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID da versão %@, carregando"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID de versión %@, cargando"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versions-ID %@, wird geladen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identifiant de version %@, chargement"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID versione %@, caricamento"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョンID %@、読み込み中"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "버전 ID %@, 불러오는 중"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本 ID %@，正在载入"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID версии %@, загрузка"
           }
         }
       }
@@ -17985,7 +17869,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sua senha fica só no Keychain deste aparelho, e o IPA só a envia para a Apple."
+            "value" : "Sua senha fica só nas Chaves deste aparelho, e o IPA só a envia para a Apple."
           }
         },
         "ru" : {
@@ -18236,64 +18120,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "v%1$@ · %2$@"
-          }
-        }
-      }
-    },
-    "Show in Finder" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mostrar no Finder"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mostrar en el Finder"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Im Finder zeigen"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Afficher dans le Finder"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mostra nel Finder"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Finderに表示"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Finder에서 보기"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "在访达中显示"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показать в Finder"
           }
         }
       }

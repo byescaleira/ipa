@@ -4,7 +4,8 @@ import Testing
 
 struct AnimationResourceTests {
     @Test(arguments: [
-        "computer", "direct", "done", "download", "find", "identity", "install", "jit", "launch",
+        "computer", "direct", "done", "download", "erase", "find", "identity", "install", "jit",
+        "launch",
         "privacy", "setup", "share",
     ])
     func embedsAPlayableAnimation(name: String) throws {

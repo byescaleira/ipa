@@ -250,6 +250,16 @@ def direct():
     return [phone, server, arrows, lock]
 
 
+def erase():
+    trash = icon("trash.fill", "tint", 84, (150, 92), delay=0, rotation=settle(40, [-10, 6, -3]))
+    trash["ks"]["s"] = appear(0, 30, overshoot=106, start=50)
+    box = icon("shippingbox.fill", "ink", 34, move([(30, (240, 48)), (80, (212, 70))]), alpha=45,
+               opacity=anim([(30, 0), (40, 100)]))
+    person = icon("person.crop.circle.fill", "ink", 30, move([(60, (82, 48)), (110, (98, 74))]), alpha=45,
+                  opacity=anim([(60, 0), (70, 100)]))
+    return [box, person, trash]
+
+
 def find():
     glass = icon("magnifyingglass", "tint", 72, move([(0, (110, 96)), (50, (128, 84)), (100, (110, 96)), (END, (110, 96))]))
     app = icon("app.fill", "denim", 56, (214, 78), delay=20)
@@ -353,6 +363,7 @@ ANIMATIONS = {
     "direct": direct,
     "done": done,
     "download": download,
+    "erase": erase,
     "find": find,
     "identity": identity,
     "install": install,

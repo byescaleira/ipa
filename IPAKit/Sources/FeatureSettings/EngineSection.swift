@@ -38,7 +38,7 @@ private struct EngineHero: View {
 
     var body: some View {
         VStack(spacing: .spaceM) {
-            IPAAnimationView(.jit).frame(maxWidth: 220)
+            IPAAnimationView(.jit).frame(maxWidth: 260)
             VStack(spacing: .spaceS) {
                 Chip(store.engineTitle, color: store.engineColor, shape: .capsule)
                     .contentTransition(.opacity)
@@ -51,7 +51,7 @@ private struct EngineHero: View {
         .textCase(nil)
         .multilineTextAlignment(.center)
         .frame(maxWidth: .infinity)
-        .padding(.vertical, .spaceS)
+        .padding(.vertical, .spaceL)
         .animation(reduceMotion ? nil : .smooth, value: store.availability)
     }
 }

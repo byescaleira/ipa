@@ -33,6 +33,13 @@ extension AppModel {
         return String(appLocalized: "v\(version.displayVersion)")
     }
 
+    public func versionAccessibilityLabel(_ externalID: String) -> String {
+        guard isLoaded(externalID) else {
+            return String(appLocalized: "Version ID \(externalID), loading")
+        }
+        return [versionTitle(externalID), versionDetail(externalID)].joined(separator: ", ")
+    }
+
     public func versionDetail(_ externalID: String) -> String {
         guard let date = versions[externalID]?.releaseDate else { return externalID }
         return [externalID, Self.dateText(date)].joined(separator: " · ")

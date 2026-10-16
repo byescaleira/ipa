@@ -59,7 +59,7 @@ private struct ActiveAccountSection: View {
             Section {
             } header: {
                 VStack(spacing: .spaceS) {
-                    AccountAvatar(active, size: .medallion)
+                    AccountAvatar(active, size: .avatarHero)
                         .shadow(color: .black.opacity(.opacityFill), radius: .spaceM, y: .spaceS)
                         .padding(.bottom, .spaceXS)
                     Text(verbatim: active.displayName)
@@ -172,6 +172,7 @@ private struct RemoveAccountSection: View {
                     accounts.removal = active
                 }
                 .font(.buttonLabel)
+                .foregroundStyle(Color.negative)
                 .frame(maxWidth: .infinity)
             } footer: {
                 Text(verbatim: accounts.removeFooter)

@@ -8,6 +8,7 @@ public enum IPAAnimation: String, CaseIterable, Sendable {
     case direct
     case done
     case download
+    case erase
     case find
     case identity
     case install

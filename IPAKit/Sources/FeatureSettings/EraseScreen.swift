@@ -45,22 +45,13 @@ struct EraseScreen: View {
 
 private struct EraseConfirmPage: View {
     @Environment(StoreSettingsModel.self) private var store
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var isShaking = false
 
     var body: some View {
         GuidePage(
             title: "Erase Everything?",
             message: "This can't be undone. IPA keeps nothing on a server to bring it back."
         ) {
-            Image(systemName: "trash")
-                .font(.icon(.xl, weight: .medium))
-                .foregroundStyle(Color.negative)
-                .frame(width: .medallion, height: .medallion)
-                .background(Color.negative.opacity(.opacityFill), in: .circle)
-                .symbolEffect(.wiggle, value: isShaking)
-                .padding(.vertical, .spaceS)
-                .task { if !reduceMotion { isShaking = true } }
+            IPAAnimationView(.erase)
         } content: {
             GuideValueList(
                 store.eraseValues.map { GuideValue($0.label, value: $0.value, color: $0.color) })

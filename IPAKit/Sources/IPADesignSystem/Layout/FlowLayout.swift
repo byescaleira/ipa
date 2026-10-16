@@ -2,9 +2,11 @@ import SwiftUI
 
 public struct FlowLayout: Layout {
     private let spacing: CGFloat
+    private let alignment: HorizontalAlignment
 
-    public init(spacing: CGFloat = 8) {
+    public init(spacing: CGFloat = 8, alignment: HorizontalAlignment = .leading) {
         self.spacing = spacing
+        self.alignment = alignment
     }
 
     public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ())
@@ -21,7 +23,7 @@ public struct FlowLayout: Layout {
     ) {
         var y = bounds.minY
         for row in rows(for: subviews, width: bounds.width) {
-            var x = bounds.minX
+            var x = bounds.minX + offset(for: row, in: bounds.width)
             for index in row.indices {
                 let size = subviews[index].sizeThatFits(.unspecified)
                 subviews[index].place(
@@ -30,6 +32,14 @@ public struct FlowLayout: Layout {
                 x += size.width + spacing
             }
             y += row.height + spacing
+        }
+    }
+
+    private func offset(for row: Row, in width: CGFloat) -> CGFloat {
+        switch alignment {
+        case .center: max((width - row.width) / 2, 0)
+        case .trailing: max(width - row.width, 0)
+        default: 0
         }
     }
 

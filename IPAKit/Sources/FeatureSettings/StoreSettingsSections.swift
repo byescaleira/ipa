@@ -34,7 +34,10 @@ private struct StoreRowsSection: View {
             ) {
                 SettingsPage("Search") { SearchLimitSection() }.environment(store)
             }
-            SettingsRow("Device Identity", symbol: "number", color: RetroColor.mustard.color) {
+            SettingsRow(
+                "Device Identity", symbol: "number", color: RetroColor.mustard.color,
+                value: store.identityValue
+            ) {
                 SettingsPage("Device Identity") { IdentitySection() }.environment(store)
             }
             SettingsRow(

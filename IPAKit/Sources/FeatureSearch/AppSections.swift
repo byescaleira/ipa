@@ -27,8 +27,8 @@ private struct AppHero: View {
     var body: some View {
         let app = model.shownApp
         VStack(spacing: .spaceM) {
-            AppArtwork(app.artworkURL, size: .medallion)
-                .shadow(color: .black.opacity(.opacityFill), radius: .spaceS, y: .space2XS)
+            AppArtwork(app.artworkURL, size: .badgeXL * 2)
+                .shadow(color: .black.opacity(.opacityFill), radius: .spaceM, y: .spaceS)
             VStack(spacing: .space2XS) {
                 Text(verbatim: app.name).font(.titleLarge).foregroundStyle(Color.primary)
                 Text(verbatim: app.seller).font(.subheadline).foregroundStyle(.secondary)
@@ -50,13 +50,15 @@ private struct AppChips: View {
     var body: some View {
         ViewThatFits {
             HStack(spacing: .spaceXS) { chips }
-            FlowLayout(spacing: .spaceXS) { chips }
+            FlowLayout(spacing: .spaceXS, alignment: .center) { chips }
         }
         .accessibilityElement(children: .combine)
     }
 
     private var chips: some View {
-        ForEach(model.chips) { Chip($0.text, color: $0.color(tint: appTint)).fixedSize() }
+        ForEach(model.chips) {
+            Chip($0.text, color: $0.color(tint: appTint), shape: .capsule).fixedSize()
+        }
     }
 }
 
@@ -90,6 +92,7 @@ private struct AppPrimaryRow: View {
 private struct AppProgressRow: View {
     @Environment(AppModel.self) private var model
     @Environment(\.appTint) private var appTint
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         VStack(alignment: .leading, spacing: .spaceS) {
@@ -102,11 +105,12 @@ private struct AppProgressRow: View {
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .monospacedDigit()
+                    .contentTransition(.numericText())
             }
             .lineLimit(1)
             ProgressView(value: model.progressFraction)
                 .tint(appTint)
-                .animation(.smooth, value: model.progressFraction)
+                .animation(reduceMotion ? nil : .smooth, value: model.progressFraction)
         }
         .padding(.vertical, .space2XS)
         .accessibilityElement(children: .combine)
@@ -164,7 +168,9 @@ private struct VersionRow: View {
         .tint(Color.primary)
         .disabled(!model.canDownload)
         .onAppear { model.requestMetadata(for: externalID) }
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(model.versionAccessibilityLabel(externalID))
+        .accessibilityAddTraits(.isButton)
     }
 }
 

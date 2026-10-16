@@ -9,44 +9,13 @@ struct EngineStatus: Hashable {
         self.availability = availability
     }
 
-    var title: String {
-        switch availability {
-        case .ready: String(appLocalized: "Ready")
-        case .needsJIT: String(appLocalized: "Needs JIT")
-        case .unsupported: String(appLocalized: "Not available on this device")
-        }
-    }
+    var title: String { availability.title }
 
-    var detail: String {
-        switch availability {
-        case .ready:
-            String(appLocalized: "Sign-in, versions and downloads work on this device.")
-        case .needsJIT:
-            String(
-                appLocalized:
-                    "Turn on JIT for IPA with StikDebug, then come back. Search works without it.")
-        case .unsupported:
-            String(
-                appLocalized:
-                    "Search works here. Sign in and download on a Mac or on an iPhone with JIT.")
-        }
-    }
+    var detail: String { availability.detail }
 
-    var symbol: String {
-        switch availability {
-        case .ready: "checkmark.seal"
-        case .needsJIT: "bolt.slash"
-        case .unsupported: "xmark.octagon"
-        }
-    }
+    var symbol: String { availability.symbol }
 
-    var color: Color {
-        switch availability {
-        case .ready: .positive
-        case .needsJIT: .warning
-        case .unsupported: .negative
-        }
-    }
+    var color: Color { availability.color }
 
-    var needsGuide: Bool { availability != .ready }
+    var needsGuide: Bool { availability.needsGuide }
 }

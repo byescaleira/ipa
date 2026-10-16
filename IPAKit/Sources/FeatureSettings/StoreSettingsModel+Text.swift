@@ -23,6 +23,10 @@ extension StoreSettingsModel {
 
     var identityText: String { identity?.macAddress ?? "—" }
 
+    var identityValue: String? {
+        identity.map { "…" + String($0.macAddress.suffix(5)) }
+    }
+
     var identityValues: [SettingsValue] {
         [
             SettingsValue(label: String(appLocalized: "Current Identity"), value: identityText),
@@ -32,29 +36,11 @@ extension StoreSettingsModel {
         ]
     }
 
-    var engineTitle: String {
-        switch availability {
-        case .ready: String(appLocalized: "Ready")
-        case .needsJIT: String(appLocalized: "Needs JIT")
-        case .unsupported: String(appLocalized: "Not Available")
-        }
-    }
+    var engineTitle: String { availability.title }
 
-    var engineColor: Color {
-        switch availability {
-        case .ready: .positive
-        case .needsJIT: .warning
-        case .unsupported: .negative
-        }
-    }
+    var engineColor: Color { availability.color }
 
-    var engineCaption: String {
-        switch availability {
-        case .ready: String(appLocalized: "Sign-in and downloads work on this device.")
-        case .needsJIT: String(appLocalized: "Sign-in and downloads wait until JIT is on.")
-        case .unsupported: String(appLocalized: "This device can't run the store engine yet.")
-        }
-    }
+    var engineCaption: String { availability.detail }
 
     var engineFooter: String {
         switch availability {
