@@ -282,6 +282,24 @@ def editor():
     return [pencil, folder, tag]
 
 
+def install():
+    package = icon("shippingbox.fill", "tint", 84, move([(0, (110, 84)), (70, (110, 84)), (110, (150, 96))]))
+    package["ks"]["s"] = appear(0, 30, overshoot=108, start=50)
+    phone = icon("iphone", "ink", 96, (220, 90), delay=0, alpha=35)
+    check = icon("checkmark.circle.fill", "olive", 30, (246, 128), delay=110)
+    check["ks"]["s"] = appear(110, overshoot=116, start=40)
+    return [phone, package, check]
+
+
+def jit():
+    chip = icon("cpu.fill", "tint", 84, (132, 90), delay=0)
+    chip["ks"]["s"] = appear(0, 30, overshoot=106, start=50)
+    bolt = icon("bolt.fill", "mustard", 46, (218, 70), delay=30, scale=breathe(70, 6, step=40))
+    lock = icon("lock.open.fill", "ink", 28, (226, 124), delay=80, alpha=55)
+    lock["ks"]["s"] = appear(80, overshoot=116, start=40)
+    return [chip, bolt, lock]
+
+
 def launch():
     card = icon("app.fill", "tint", 84, float_y(150, 92, 5, step=75), scale=breathe(0, 3, step=75))
     star = icon("star.fill", "mustard", 36, move([(0, (204, 120)), (75, (220, 42)), (END, (204, 120))]),
@@ -318,6 +336,8 @@ ANIMATIONS = {
     "done": done,
     "editor": editor,
     "find": find,
+    "install": install,
+    "jit": jit,
     "launch": launch,
     "privacy": privacy,
     "setup": setup,

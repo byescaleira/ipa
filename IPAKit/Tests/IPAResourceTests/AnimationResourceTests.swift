@@ -3,7 +3,10 @@ import IPAResource
 import Testing
 
 struct AnimationResourceTests {
-    @Test(arguments: ["direct", "done", "editor", "find", "launch", "privacy", "setup", "widgets"])
+    @Test(arguments: [
+        "direct", "done", "editor", "find", "install", "jit", "launch", "privacy", "setup",
+        "widgets",
+    ])
     func embedsAPlayableAnimation(name: String) throws {
         let json = try #require(IPAResourceAnimation.json(named: name))
         let object = try #require(

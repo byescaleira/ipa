@@ -14,3 +14,8 @@ O que falta, por prioridade. Itens concluídos saem daqui; o motivo das decisõe
 - **[P2] Motor no visionOS.** Go não gera binário para visionOS; avaliar reetiquetar os objetos do slice de iOS ou usar o Mac como motor remoto.
 - **[P2] Mac como motor do iPhone.** Sem JIT, o iPhone poderia pedir ao Mac que entre e baixe e receber o `.ipa` pela rede local.
 - **[P3] Compras da conta.** O ipatool lista os apps já obtidos (`list-purchases`); dá uma seção "Purchased" por conta.
+
+## Motor e revisão
+
+- **[P1] Motor real do ipatool (etapa 2.1).** A frente parou num bloqueio do classificador de segurança; por decisão do usuário, as telas seguem com o `SimulatedStoreEngine` e o motor é retomado na sessão principal, com ele acompanhando.
+- **[P1] Revisão de design de tudo.** Religar a lista `ui` do `.apple-sdd.json` e rodar o `apple-sdd:design-reviewer` sobre a etapa 2 integrada.

@@ -15,6 +15,8 @@ extension Guide {
         case .tour: Self.tourPages
         case .appearance: Self.appearancePages
         case .privacy: Self.privacyPages
+        case .jit: Self.jitPages
+        case .install: Self.installPages
         }
     }
 }

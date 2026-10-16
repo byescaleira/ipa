@@ -2,7 +2,7 @@ import IPADomain
 import SwiftUI
 
 public enum Guide: String, CaseIterable, Identifiable, Sendable {
-    case tour, appearance, privacy
+    case tour, jit, install, appearance, privacy
 
     public var id: String { rawValue }
 
@@ -11,6 +11,8 @@ public enum Guide: String, CaseIterable, Identifiable, Sendable {
         case .tour: String(appLocalized: "Meet IPA")
         case .appearance: String(appLocalized: "Make It Yours")
         case .privacy: String(appLocalized: "Privacy")
+        case .jit: String(appLocalized: "Turn On JIT")
+        case .install: String(appLocalized: "Install an IPA")
         }
     }
 
@@ -19,6 +21,8 @@ public enum Guide: String, CaseIterable, Identifiable, Sendable {
         case .tour: String(appLocalized: "The tabs and what each one shows")
         case .appearance: String(appLocalized: "Theme, accent color and language")
         case .privacy: String(appLocalized: "Where your data lives")
+        case .jit: String(appLocalized: "Why the store engine needs it on iPhone")
+        case .install: String(appLocalized: "Ways to put a package on a device")
         }
     }
 
@@ -27,6 +31,8 @@ public enum Guide: String, CaseIterable, Identifiable, Sendable {
         case .tour: "sparkles"
         case .appearance: "paintbrush"
         case .privacy: "lock.shield"
+        case .jit: "bolt"
+        case .install: "square.and.arrow.down"
         }
     }
 
@@ -35,6 +41,8 @@ public enum Guide: String, CaseIterable, Identifiable, Sendable {
         case .tour: .launch
         case .appearance: .editor
         case .privacy: .privacy
+        case .jit: .jit
+        case .install: .install
         }
     }
 
@@ -43,13 +51,14 @@ public enum Guide: String, CaseIterable, Identifiable, Sendable {
         case .tour: .start
         case .appearance: .personalize
         case .privacy: .data
+        case .jit, .install: .sideload
         }
     }
 
     public var minutes: Int {
         switch self {
         case .tour: 2
-        case .appearance, .privacy: 1
+        case .appearance, .privacy, .jit, .install: 1
         }
     }
 }

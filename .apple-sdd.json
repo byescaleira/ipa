@@ -24,5 +24,6 @@
     "foreign-localization": [
       "/IPADomain/Localization/"
     ]
-  }
+  },
+  "ui": []
 }

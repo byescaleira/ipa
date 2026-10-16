@@ -2,13 +2,14 @@ import Foundation
 import IPADomain
 
 public enum GuideCategory: String, CaseIterable, Identifiable, Sendable {
-    case start, personalize, data
+    case start, sideload, personalize, data
 
     public var id: String { rawValue }
 
     public var title: String {
         switch self {
         case .start: String(appLocalized: "Start Here")
+        case .sideload: String(appLocalized: "Sideloading")
         case .personalize: String(appLocalized: "Personalize")
         case .data: String(appLocalized: "Data and Privacy")
         }
