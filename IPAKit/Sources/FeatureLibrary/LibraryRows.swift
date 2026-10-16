@@ -75,7 +75,7 @@ struct DownloadRecordRow: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .accessibilityElement(children: .combine)
-            ShareLink(item: url) {
+            ShareButton([url]) {
                 Label("Share", systemImage: "square.and.arrow.up")
             }
             .labelStyle(.iconOnly)
@@ -87,12 +87,12 @@ struct DownloadRecordRow: View {
             Button("Delete", systemImage: "trash", role: .destructive) {
                 library.deletion = record
             }
-            ShareLink(item: url) {
+            ShareButton([url]) {
                 Label("Share", systemImage: "square.and.arrow.up")
             }
         }
         .contextMenu {
-            ShareLink(item: url) {
+            ShareButton([url]) {
                 Label("Share", systemImage: "square.and.arrow.up")
             }
             #if os(macOS)

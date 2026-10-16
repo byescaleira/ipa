@@ -11,7 +11,7 @@ struct AppIdentifiersSection: View {
             Section {
                 ForEach(model.identifiers) { IdentifierRow(identifier: $0) }
                 if let url = model.shareURL {
-                    ShareLink(item: url) {
+                    ShareButton([url]) {
                         Label("Share Link", systemImage: "square.and.arrow.up")
                             .font(.buttonLabel)
                     }

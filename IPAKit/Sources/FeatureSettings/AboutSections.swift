@@ -49,16 +49,10 @@ private struct AboutShareButton: View {
 
     var body: some View {
         if let url = settings.info.shareURL {
-            ShareLink(
-                item: url, message: Text(about.shareMessage),
-                preview: SharePreview(
-                    "IPA", image: IPAResourceImage.appIcon(settings.appIcon.previewName))
-            ) {
-                label
-            }
-            .primaryButton()
+            ShareButton([url, about.shareMessage]) { label }
+                .primaryButton()
         } else {
-            ShareLink(item: about.shareMessage) { label }
+            ShareButton([about.shareMessage]) { label }
                 .primaryButton()
         }
     }
