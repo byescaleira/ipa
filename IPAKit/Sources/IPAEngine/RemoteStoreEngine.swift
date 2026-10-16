@@ -1,5 +1,8 @@
 import Foundation
 import IPADomain
+import os
+
+private let log = Logger(subsystem: "com.byescaleira.ipa", category: "remote")
 
 public struct RemoteStoreEngine: StoreEngine {
     private let config: ServerConfig
@@ -70,7 +73,10 @@ public struct RemoteStoreEngine: StoreEngine {
         }
 
         let total = max(http.expectedContentLength, 0)
-        let destination = request.destination
+        let version = http.value(forHTTPHeaderField: "X-IPA-Version") ?? request.app.version
+        let name = PackageName.file(
+            bundleID: request.app.bundleID, appID: request.app.id, version: version)
+        let destination = request.destination.appending(path: name)
         FileManager.default.createFile(atPath: destination.path(percentEncoded: false), contents: nil)
         let handle = try FileHandle(forWritingTo: destination)
         defer { try? handle.close() }
@@ -93,7 +99,6 @@ public struct RemoteStoreEngine: StoreEngine {
         }
         progress(DownloadProgress(phase: .downloading, completedBytes: written, totalBytes: total))
 
-        let version = http.value(forHTTPHeaderField: "X-IPA-Version") ?? request.app.version
         return DownloadedPackage(fileURL: destination, version: version, sizeBytes: written)
     }
 
@@ -125,19 +130,27 @@ public struct RemoteStoreEngine: StoreEngine {
     }
 
     private func send(_ path: String, _ payload: [String: Any]) async throws -> [String: Any] {
+        log.info("POST \(path, privacy: .public) → \(config.baseURL.absoluteString, privacy: .public)")
         let (data, response): (Data, URLResponse)
         do {
             (data, response) = try await session.data(for: try post(path, payload))
         } catch let error as IPAError {
             throw error
         } catch {
+            log.error("POST \(path, privacy: .public) transport error: \(error.localizedDescription, privacy: .public)")
             throw IPAError.network
         }
+        let status = (response as? HTTPURLResponse)?.statusCode ?? 0
         let object = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] ?? [:]
-        if let error = object["error"] as? [String: Any] { throw Self.map(error) }
+        if let error = object["error"] as? [String: Any] {
+            log.error("POST \(path, privacy: .public) ← \(status) error \(String(describing: error["code"]), privacy: .public)")
+            throw Self.map(error)
+        }
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+            log.error("POST \(path, privacy: .public) ← \(status) unexpected")
             throw IPAError.store(String(appLocalized: "The server could not complete the request."))
         }
+        log.info("POST \(path, privacy: .public) ← \(status) ok")
         return object
     }
 

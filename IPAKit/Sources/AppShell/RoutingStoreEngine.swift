@@ -1,6 +1,9 @@
 import Foundation
 import IPADomain
 import IPAEngine
+import os
+
+private let log = Logger(subsystem: "com.byescaleira.ipa", category: "routing")
 
 struct RoutingStoreEngine: StoreEngine {
     private let configStore: any ServerConfigStoring
@@ -15,8 +18,10 @@ struct RoutingStoreEngine: StoreEngine {
 
     private func engine() -> any StoreEngine {
         if let config = configStore.load() {
+            log.info("routing to server \(config.baseURL.absoluteString, privacy: .public)")
             return RemoteStoreEngine(config: config, vault: vault)
         }
+        log.info("routing to local engine (no server configured)")
         return local
     }
 

@@ -1,9 +1,12 @@
 import Foundation
 import IPADomain
+import os
 
 #if os(iOS)
     import IPAToolCore
 #endif
+
+private let log = Logger(subsystem: "com.byescaleira.ipa", category: "local")
 
 public struct IPAToolEngine: StoreEngine {
     private let vault: any AccountVault
@@ -111,9 +114,11 @@ public struct IPAToolEngine: StoreEngine {
     }
 
     private func run(_ name: String, _ payload: [String: Any]) async throws -> [String: Any] {
+        log.info("local engine op \(name, privacy: .public), availability \(String(describing: JITStatus.availability), privacy: .public)")
         guard JITStatus.availability == .ready else { throw IPAError.engine(JITStatus.availability) }
         let request = String(
             data: try JSONSerialization.data(withJSONObject: payload), encoding: .utf8) ?? "{}"
+        log.info("local engine entering Unicorn for \(name, privacy: .public)")
         let text = await Task.detached(priority: .userInitiated) { Bridge.call(name, request) }.value
         let object = Self.object(from: text)
         if let error = object["error"] as? [String: Any] { throw Self.map(error) }

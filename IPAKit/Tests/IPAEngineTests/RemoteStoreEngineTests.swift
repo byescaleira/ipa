@@ -130,16 +130,16 @@ struct RemoteStoreEngineTests {
         let folder = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: folder) }
-        let destination = folder.appending(path: "app.ipa")
 
         let vault = try signedInVault()
         let package = try await engine(vault: vault).download(
             DownloadRequest(
                 app: app, account: SampleAccount.value, externalVersionID: "300",
-                destination: destination), progress: { _ in })
+                destination: folder), progress: { _ in })
         #expect(package.version == "3.1")
         #expect(package.sizeBytes == Int64(payload.count))
-        #expect(try Data(contentsOf: destination) == payload)
+        #expect(package.fileURL.lastPathComponent == "com.example.app_42_3.1.ipa")
+        #expect(try Data(contentsOf: package.fileURL) == payload)
     }
 
     @Test func sendsTheBearerToken() async throws {

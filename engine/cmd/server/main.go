@@ -101,9 +101,39 @@ func classify(err error) apiError {
 	}
 }
 
+type liveSession struct {
+	mu    sync.Mutex
+	store appstore.AppStore
+}
+
+type sessions struct {
+	mu   sync.Mutex
+	byID map[string]*liveSession
+}
+
+func newSessions() *sessions {
+	return &sessions{byID: map[string]*liveSession{}}
+}
+
+func (s *sessions) put(id string, store appstore.AppStore) {
+	if id == "" {
+		return
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.byID[id] = &liveSession{store: store}
+}
+
+func (s *sessions) get(id string) *liveSession {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.byID[id]
+}
+
 type server struct {
-	token string
-	cache string
+	token    string
+	cache    string
+	sessions *sessions
 }
 
 func (s server) store(macAddress string) (appstore.AppStore, error) {
@@ -127,15 +157,20 @@ type appRequest struct {
 	VersionID  string          `json:"versionID"`
 }
 
-func (r appRequest) resolve(s server) (appstore.AppStore, appstore.Account, appstore.App, error) {
+func (r appRequest) resolve(s server) (appstore.AppStore, appstore.Account, appstore.App, func(), error) {
 	var account appstore.Account
 	if len(r.Credential) > 0 {
 		if err := json.Unmarshal(r.Credential, &account); err != nil {
-			return nil, account, appstore.App{}, err
+			return nil, account, appstore.App{}, func() {}, err
 		}
 	}
+	app := appstore.App{ID: r.AppID, BundleID: r.BundleID}
+	if live := s.sessions.get(account.DirectoryServicesID); live != nil {
+		live.mu.Lock()
+		return live.store, account, app, live.mu.Unlock, nil
+	}
 	store, err := s.store(r.MacAddress)
-	return store, account, appstore.App{ID: r.AppID, BundleID: r.BundleID}, err
+	return store, account, app, func() {}, err
 }
 
 func writeJSON(w http.ResponseWriter, status int, value any) {
@@ -145,7 +180,30 @@ func writeJSON(w http.ResponseWriter, status int, value any) {
 }
 
 func writeError(w http.ResponseWriter, err error) {
-	writeJSON(w, http.StatusBadGateway, map[string]any{"error": classify(err)})
+	e := classify(err)
+	log.Printf("  error: code=%s message=%s", e.Code, e.Message)
+	writeJSON(w, http.StatusBadGateway, map[string]any{"error": e})
+}
+
+type statusRecorder struct {
+	http.ResponseWriter
+	status int
+}
+
+func (r *statusRecorder) WriteHeader(code int) {
+	r.status = code
+	r.ResponseWriter.WriteHeader(code)
+}
+
+func logRequests(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		log.Printf("→ %s %s from %s", r.Method, r.URL.Path, r.RemoteAddr)
+		recorder := &statusRecorder{ResponseWriter: w, status: 200}
+		next.ServeHTTP(recorder, r)
+		log.Printf("← %d %s %s (%s)", recorder.status, r.Method, r.URL.Path,
+			time.Since(start).Round(time.Millisecond))
+	})
 }
 
 func decode(w http.ResponseWriter, r *http.Request, value any) bool {
@@ -199,6 +257,7 @@ func (s server) handleLogin(w http.ResponseWriter, r *http.Request) {
 		writeError(w, err)
 		return
 	}
+	s.sessions.put(output.Account.DirectoryServicesID, store)
 	writeJSON(w, http.StatusOK, map[string]any{"account": output.Account})
 }
 
@@ -210,11 +269,12 @@ func (s server) handleVersions(w http.ResponseWriter, r *http.Request) {
 	if !decode(w, r, &input) {
 		return
 	}
-	store, account, app, err := input.resolve(s)
+	store, account, app, release, err := input.resolve(s)
 	if err != nil {
 		writeError(w, err)
 		return
 	}
+	defer release()
 	output, err := store.ListVersions(appstore.ListVersionsInput{
 		Context: r.Context(), Account: account, App: app, Platform: appstore.PlatformIPhone,
 	})
@@ -236,11 +296,12 @@ func (s server) handleVersion(w http.ResponseWriter, r *http.Request) {
 	if !decode(w, r, &input) {
 		return
 	}
-	store, account, app, err := input.resolve(s)
+	store, account, app, release, err := input.resolve(s)
 	if err != nil {
 		writeError(w, err)
 		return
 	}
+	defer release()
 	output, err := store.GetVersionMetadata(appstore.GetVersionMetadataInput{
 		Context: r.Context(), Account: account, App: app,
 		VersionID: input.VersionID, Platform: appstore.PlatformIPhone,
@@ -263,11 +324,12 @@ func (s server) handlePurchase(w http.ResponseWriter, r *http.Request) {
 	if !decode(w, r, &input) {
 		return
 	}
-	store, account, app, err := input.resolve(s)
+	store, account, app, release, err := input.resolve(s)
 	if err != nil {
 		writeError(w, err)
 		return
 	}
+	defer release()
 	err = store.Purchase(appstore.PurchaseInput{
 		Account: account, App: app, Platform: appstore.PlatformIPhone,
 	})
@@ -286,11 +348,12 @@ func (s server) handleDownload(w http.ResponseWriter, r *http.Request) {
 	if !decode(w, r, &input) {
 		return
 	}
-	store, account, app, err := input.resolve(s)
+	store, account, app, release, err := input.resolve(s)
 	if err != nil {
 		writeError(w, err)
 		return
 	}
+	defer release()
 
 	dir, err := os.MkdirTemp(s.cache, "download-")
 	if err != nil {
@@ -366,7 +429,7 @@ func main() {
 		log.Fatalf("cache directory: %v", err)
 	}
 
-	srv := server{token: os.Getenv("IPA_SERVER_TOKEN"), cache: cache}
+	srv := server{token: os.Getenv("IPA_SERVER_TOKEN"), cache: cache, sessions: newSessions()}
 	if srv.token == "" {
 		log.Println("warning: IPA_SERVER_TOKEN is empty; the server accepts unauthenticated requests")
 	}
@@ -383,7 +446,7 @@ func main() {
 
 	httpServer := &http.Server{
 		Addr:              address,
-		Handler:           mux,
+		Handler:           logRequests(mux),
 		ReadHeaderTimeout: 15 * time.Second,
 	}
 	log.Printf("ipa server listening on %s (cache %s)", address, cache)

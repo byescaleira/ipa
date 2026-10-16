@@ -72,3 +72,8 @@ docs/store/screenshots/*-6.3/
 
 # StikJIT xcframework (embedded JIT, added with the StikDebug integration)
 IPAKit/Frameworks/StikJIT.xcframework
+
+# Dev-only skill tooling (skills add)
+.agents/
+.claude/skills/
+skills-lock.json
