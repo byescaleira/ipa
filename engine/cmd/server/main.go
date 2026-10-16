@@ -10,10 +10,12 @@ import (
 	"net/http"
 	"net/http/cookiejar"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/byteness/keyring"
@@ -101,9 +103,15 @@ func classify(err error) apiError {
 	}
 }
 
+const (
+	sessionTTL  = 30 * time.Minute
+	maxSessions = 64
+)
+
 type liveSession struct {
-	mu    sync.Mutex
-	store appstore.AppStore
+	mu       sync.Mutex
+	store    appstore.AppStore
+	lastUsed time.Time
 }
 
 type sessions struct {
@@ -121,13 +129,41 @@ func (s *sessions) put(id string, store appstore.AppStore) {
 	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	s.byID[id] = &liveSession{store: store}
+	s.evictLocked()
+	s.byID[id] = &liveSession{store: store, lastUsed: time.Now()}
 }
 
 func (s *sessions) get(id string) *liveSession {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	return s.byID[id]
+	live := s.byID[id]
+	if live == nil {
+		return nil
+	}
+	if time.Since(live.lastUsed) > sessionTTL {
+		delete(s.byID, id)
+		return nil
+	}
+	live.lastUsed = time.Now()
+	return live
+}
+
+func (s *sessions) evictLocked() {
+	for id, live := range s.byID {
+		if time.Since(live.lastUsed) > sessionTTL {
+			delete(s.byID, id)
+		}
+	}
+	for len(s.byID) >= maxSessions {
+		var oldestID string
+		var oldest time.Time
+		for id, live := range s.byID {
+			if oldestID == "" || live.lastUsed.Before(oldest) {
+				oldestID, oldest = id, live.lastUsed
+			}
+		}
+		delete(s.byID, oldestID)
+	}
 }
 
 type server struct {
@@ -203,6 +239,27 @@ func logRequests(next http.Handler) http.Handler {
 		next.ServeHTTP(recorder, r)
 		log.Printf("← %d %s %s (%s)", recorder.status, r.Method, r.URL.Path,
 			time.Since(start).Round(time.Millisecond))
+	})
+}
+
+func recoverPanics(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if rec := recover(); rec != nil {
+				log.Printf("panic handling %s %s: %v", r.Method, r.URL.Path, rec)
+				writeJSON(w, http.StatusInternalServerError, map[string]any{
+					"error": apiError{Code: "other", Message: "internal error"},
+				})
+			}
+		}()
+		next.ServeHTTP(w, r)
+	})
+}
+
+func limitBody(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		r.Body = http.MaxBytesReader(w, r.Body, 1<<20)
+		next.ServeHTTP(w, r)
 	})
 }
 
@@ -366,7 +423,7 @@ func (s server) handleDownload(w http.ResponseWriter, r *http.Request) {
 	download := func() (appstore.DownloadOutput, error) {
 		return store.Download(appstore.DownloadInput{
 			Context: r.Context(), Account: account, App: app, OutputPath: destination,
-			Progress: progressbar.NewOptions64(1, progressbar.OptionSetWriter(io.Discard)),
+			Progress:          progressbar.NewOptions64(1, progressbar.OptionSetWriter(io.Discard)),
 			ExternalVersionID: input.VersionID, Platform: appstore.PlatformIPhone,
 		})
 	}
@@ -430,8 +487,8 @@ func main() {
 	}
 
 	srv := server{token: os.Getenv("IPA_SERVER_TOKEN"), cache: cache, sessions: newSessions()}
-	if srv.token == "" {
-		log.Println("warning: IPA_SERVER_TOKEN is empty; the server accepts unauthenticated requests")
+	if srv.token == "" && os.Getenv("IPA_SERVER_ALLOW_NO_AUTH") != "1" {
+		log.Fatal("IPA_SERVER_TOKEN is empty; set it, or set IPA_SERVER_ALLOW_NO_AUTH=1 for local testing")
 	}
 
 	mux := http.NewServeMux()
@@ -446,11 +503,28 @@ func main() {
 
 	httpServer := &http.Server{
 		Addr:              address,
-		Handler:           logRequests(mux),
+		Handler:           logRequests(recoverPanics(limitBody(mux))),
 		ReadHeaderTimeout: 15 * time.Second,
+		ReadTimeout:       60 * time.Second,
+		IdleTimeout:       120 * time.Second,
 	}
-	log.Printf("ipa server listening on %s (cache %s)", address, cache)
-	if err := httpServer.ListenAndServe(); err != nil {
-		log.Fatalf("server: %v", err)
+
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
+	go func() {
+		log.Printf("ipa server listening on %s (cache %s)", address, cache)
+		if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			log.Fatalf("server: %v", err)
+		}
+	}()
+
+	<-ctx.Done()
+	stop()
+	log.Println("shutting down")
+	shutdownCtx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+	if err := httpServer.Shutdown(shutdownCtx); err != nil {
+		log.Printf("shutdown: %v", err)
 	}
 }

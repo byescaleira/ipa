@@ -36,10 +36,19 @@ valor no login e nas chamadas seguintes para o ipatool manter o mesmo vínculo.
 ## Configuração
 
 - `IPA_SERVER_ADDRESS` — endereço de escuta (padrão `:8080`).
-- `IPA_SERVER_TOKEN` — token exigido no `Authorization`. Vazio aceita requisições
-  sem autenticação (só para teste local).
+- `IPA_SERVER_TOKEN` — token exigido no `Authorization`. Sem ele o servidor **não
+  sobe** (fail-closed); para teste local sem token, defina
+  `IPA_SERVER_ALLOW_NO_AUTH=1`.
 - `IPA_SERVER_CACHE` — diretório dos assets da SAP (storeagent) e dos downloads
   temporários. Padrão: `UserCacheDir/ipa-server`.
+
+O servidor mantém a sessão do ipatool viva por conta (chaveada pelo DSID) para
+reusar os cookies do login nas chamadas seguintes; sessões expiram em 30 min de
+ociosidade e o cache é limitado a 64 contas. Ele encerra de forma graciosa em
+`SIGINT`/`SIGTERM` (até 20 s), tem timeouts de leitura e limita o corpo das
+requisições a 1 MiB. Faça o build com um Go atual: o `govulncheck` aponta CVEs da
+biblioteca padrão (`net/http`) corrigidas a partir do `go1.26.6`, que a imagem
+`golang:1.26-bookworm` do `Dockerfile` já traz.
 
 ## Build e deploy
 
