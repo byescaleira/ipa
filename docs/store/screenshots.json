@@ -1,0 +1,54 @@
+{
+  "en-US": [
+    {
+      "name": "hero",
+      "eyebrow": "IPA",
+      "title": "The App Store,<br><em>decoded.</em>",
+      "subtitle": "Every country. Every detail. One search.",
+      "badges": ["<b>134</b> App Store countries", "<b>Zero</b> servers, analytics or ads", "<b>Free</b>, no in-app purchases"],
+      "footer": "Built on DLiPA and ipatool"
+    },
+    {
+      "name": "search",
+      "capture": "search.png",
+      "eyebrow": "Search",
+      "title": "Find any app,<br><em>any way.</em>",
+      "subtitle": "By name, bundle ID, App Store link or app ID."
+    },
+    {
+      "name": "details",
+      "capture": "app.png",
+      "eyebrow": "Details",
+      "title": "Everything<br><em>at a glance.</em>",
+      "subtitle": "Version, minimum iOS, size, price and every identifier, one tap to copy."
+    },
+    {
+      "name": "storefronts",
+      "capture": "storefront.png",
+      "eyebrow": "134 Stores",
+      "title": "Every country,<br><em>one tap away.</em>",
+      "subtitle": "Switch countries and compare prices and availability."
+    },
+    {
+      "name": "appearance",
+      "capture": "appearance.png",
+      "eyebrow": "Appearance",
+      "title": "Make it<br><em>yours.</em>",
+      "subtitle": "Light, dark or automatic, with 26 accent colors."
+    },
+    {
+      "name": "guides",
+      "capture": "guides.png",
+      "eyebrow": "Guides",
+      "title": "Sideloading,<br><em>explained.</em>",
+      "subtitle": "Short, illustrated guides for JIT and installing packages."
+    },
+    {
+      "name": "privacy",
+      "capture": "privacy.png",
+      "eyebrow": "Privacy",
+      "title": "Private<br><em>by design.</em>",
+      "subtitle": "No servers, no analytics, no ads. Only Apple's public search."
+    }
+  ]
+}
