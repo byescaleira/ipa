@@ -13,6 +13,8 @@ O que falta, por prioridade. Itens concluídos saem daqui; o motivo das decisõe
 - **[P1] Instalar no aparelho.** O DLiPA instalava pelo `itms-services`, que exige um servidor HTTPS local com certificado válido; estudar antes de prometer.
 - **[P2] Motor no visionOS.** Go não gera binário para visionOS; avaliar reetiquetar os objetos do slice de iOS ou usar o Mac como motor remoto.
 - **[P2] Mac como motor do iPhone.** Sem JIT, o iPhone poderia pedir ao Mac que entre e baixe e receber o `.ipa` pela rede local.
+- **[P2] Download em segundo plano.** Hoje o download roda numa `Task` do `DownloadCenter` e para quando o sistema suspende o app; o rodapé de In Progress pede para manter o IPA aberto. Com o motor real (2.1), avaliar `URLSession` em segundo plano para o arquivo e uma Live Activity com a barra.
+- **[P3] Miniatura do tema igual ao herói de Downloads.** O herói ficou "ON THIS DEVICE" · "5 packages" · "412.5 MB used"; a `ThemePreview` (etapa 2.4) ainda mostra "Packages on this device" e "5".
 - **[P3] Compras da conta.** O ipatool lista os apps já obtidos (`list-purchases`); dá uma seção "Purchased" por conta.
 
 ## Motor e revisão

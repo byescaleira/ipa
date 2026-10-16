@@ -8,6 +8,7 @@ public final class AccountsModel {
     public private(set) var activeEmail: String?
     public private(set) var hasLoaded = false
     public var error: IPAError?
+    public var removal: Account?
     @ObservationIgnored private let vault: any AccountVault
     @ObservationIgnored private let defaults: UserDefaults
 
@@ -65,6 +66,17 @@ public final class AccountsModel {
         } catch {
             self.error = error as? IPAError ?? .onRemove
         }
+    }
+
+    public var isConfirmingRemoval: Bool {
+        get { removal != nil }
+        set { if !newValue { removal = nil } }
+    }
+
+    public func confirmRemoval() {
+        guard let removal else { return }
+        self.removal = nil
+        remove(removal)
     }
 
     public func reset() {
