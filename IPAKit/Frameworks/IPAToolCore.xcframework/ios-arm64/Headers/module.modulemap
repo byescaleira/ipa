@@ -1,0 +1,4 @@
+module IPAToolCore {
+    header "IPAToolCore.h"
+    export *
+}

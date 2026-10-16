@@ -1,6 +1,7 @@
 import Foundation
 import IPAData
 import IPADomain
+import IPAEngine
 import IPAMock
 import Observation
 
@@ -19,10 +20,19 @@ public final class IPAServices {
     }
 
     private static func engine(vault: any AccountVault) -> any StoreEngine {
-        #if DEBUG
-            SimulatedStoreEngine(vault: vault)
+        #if os(iOS)
+            if isSimulator { return SimulatedStoreEngine(vault: vault) }
+            return IPAToolEngine(vault: vault)
         #else
-            UnavailableStoreEngine()
+            return UnavailableStoreEngine()
+        #endif
+    }
+
+    private static var isSimulator: Bool {
+        #if targetEnvironment(simulator)
+            true
+        #else
+            false
         #endif
     }
 
