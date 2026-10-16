@@ -26,3 +26,11 @@ O que falta, por prioridade. Itens concluídos saem daqui; o motivo das decisõe
 
 - **[P1] Motor real do ipatool (etapa 2.1).** A frente parou num bloqueio do classificador de segurança; por decisão do usuário, as telas seguem com o `SimulatedStoreEngine` e o motor é retomado na sessão principal, com ele acompanhando.
 - **[P1] Revisão de design de tudo.** Religar a lista `ui` do `.apple-sdd.json` e rodar o `apple-sdd:design-reviewer` sobre a etapa 2 integrada.
+
+## Motor e JIT
+
+- **[P1] get-task-allow para o JIT.** O motor só roda com JIT, e o JIT (StikDebug) exige `get-task-allow`. Builds de distribuição (TestFlight, notarizado PAL) não têm esse direito; só os de sideload (AltStore/SideStore, que reassinam). Para testar o motor no aparelho, instalar o `.ipa` por sideload, não pelo TestFlight.
+- **[P2] StikDebug embutido.** Por ora o JIT vem do app StikDebug separado; o StikJIT embutido (extensão helper + XPC, AGPL) fica para depois. `StikJIT.xcframework` 1.9.0 já baixado em `IPAKit/Frameworks/` (ignorado). Spec em docs/jit.md.
+- **[P2] Plataforma fixa no motor.** A ponte usa `PlatformIPhone` fixo; apps só de iPad ou de outras plataformas podem falhar. Passar a plataforma do app pela ponte.
+- **[P2] Revisão e licenças.** A trava de design está pausada (`ui: []`) na feature/engine; religar e revisar na integração. Declarar as licenças: ipatool (MIT) e Unicorn (GPLv2) embutidos.
+- **[P3] Motor no Mac e visionOS.** Hoje o `binaryTarget` só cobre iOS; o Mac tem JIT nativo e poderia rodar o motor com uma fatia `macos-arm64`.
