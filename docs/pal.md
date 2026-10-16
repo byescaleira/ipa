@@ -13,8 +13,8 @@ Referências: [Distribute with AltStore PAL](https://faq.altstore.io/developers/
 | 3 | `POST https://api.altstore.io/register` com o Developer ID e o e-mail; devolve um token | Claude, com o Developer ID | feito em 16/10/2026 (token vale 24 h) |
 | 4 | App Store Connect › Users and Access › Integrations › Marketplace › `+`: colar o token, escolher o IPA, "Yes, send notifications" | usuário | feito |
 | 5 | Criar o app em App Store Connect › Apps › `+` › New App (dados abaixo) | usuário | feito |
-| 6 | Xcode Cloud, workflow com Archive iOS (scheme **Production**, App Store Connect) na `feature/pal-notarization`, ambiente "Latest Release" (o upload local com o Xcode beta falha com o erro 90534) | usuário | build 1.0 (1) no TestFlight em 16/10/2026 |
-| 7 | Na página do app: preencher os metadados (abaixo), App Review › Review Type › **Notarization**, escolher o build 1.0 (2) e enviar | usuário | enviado em 16/10/2026 (Waiting for Review), com as artes de `docs/store` |
+| 6 | Xcode Cloud, workflow com Archive iOS (scheme **Production**, App Store Connect) na `feature/pal-notarization`, ambiente "Latest Release" (o upload local com o Xcode beta falha com o erro 90534) | usuário | build 1.0 (2) no TestFlight em 16/10/2026 (o 1.0 (1), com o Lottie cortado e sem a assinatura da Airbnb, voltou como Invalid Binary) |
+| 7 | Na página do app: preencher os metadados (abaixo), App Review › Review Type › **Notarization**, escolher o build 1.0 (2) e enviar | usuário | reenviado em 16/10/2026 com o build 2 (Waiting for Review), com as artes de `docs/store` |
 | 8 | Depois da aprovação (o artigo citou cerca de 30 h): pegar o **ADP ID** do build e o **Apple ID** do app (App Information) | usuário | — |
 | 9 | `POST https://api.altstore.io/adps` com o ADP ID, `GET …/adps/<id>` até ter o `downloadURL`, baixar o pacote e hospedar sem alterar nenhum arquivo em `byescaleira/apps/pal/ipa/<versão>/` | Claude | — |
 | 10 | Criar `pal.json` (source separado do `source.json`) com `marketplaceID` e o `downloadURL` apontando para o `manifest.json` hospedado | Claude | — |
