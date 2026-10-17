@@ -19,6 +19,10 @@
 	<string>https://github.com/byescaleira/ipa</string>
 	<key>IPAPrivacyURL</key>
 	<string>https://byescaleira.github.io/apps/privacy/</string>
+	<key>IPAServerHost</key>
+	<string>$(IPA_SERVER_HOST)</string>
+	<key>IPAServerToken</key>
+	<string>$(IPA_SERVER_TOKEN)</string>
 	<key>IPASupportEmail</key>
 	<string></string>
 	<key>IPATermsURL</key>

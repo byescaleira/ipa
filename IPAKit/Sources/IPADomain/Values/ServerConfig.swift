@@ -20,4 +20,10 @@ public struct ServerConfig: Hashable, Sendable, Codable {
     public func endpoint(_ path: String) -> URL {
         baseURL.appending(path: path)
     }
+
+    public static var bundled: ServerConfig? {
+        let host = Bundle.main.object(forInfoDictionaryKey: "IPAServerHost") as? String ?? ""
+        let token = Bundle.main.object(forInfoDictionaryKey: "IPAServerToken") as? String ?? ""
+        return ServerConfig(address: host, token: token)
+    }
 }

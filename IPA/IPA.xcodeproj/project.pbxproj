@@ -11,6 +11,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A10000000000000000000F02 /* Server.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Server.xcconfig; sourceTree = "<group>"; };
 		A10000000000000000000F01 /* IPA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,6 +51,7 @@
 		A10000000000000000000600 = {
 			isa = PBXGroup;
 			children = (
+				A10000000000000000000F02 /* Server.xcconfig */,
 				A10000000000000000000601 /* IPA */,
 				A10000000000000000000602 /* Products */,
 			);
@@ -278,6 +280,7 @@
 		};
 		A1000000000000000000C003 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A10000000000000000000F02 /* Server.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = IPAIcon;
 				"OTHER_LDFLAGS[sdk=iphoneos*]" = "-Wl,-force_load,$(SRCROOT)/../IPAKit/Frameworks/libunicorn-ios.a";
@@ -332,6 +335,7 @@
 		};
 		A1000000000000000000C004 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A10000000000000000000F02 /* Server.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = IPAIcon;
 				"OTHER_LDFLAGS[sdk=iphoneos*]" = "-Wl,-force_load,$(SRCROOT)/../IPAKit/Frameworks/libunicorn-ios.a";

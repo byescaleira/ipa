@@ -69,7 +69,8 @@ public struct ShareButton<Label: View>: View {
             if let presented = controller.presentedViewController {
                 return leaf(of: presented)
             }
-            if let tab = controller as? UITabBarController, let selected = tab.selectedViewController
+            if let tab = controller as? UITabBarController,
+                let selected = tab.selectedViewController
             {
                 return leaf(of: selected)
             }

@@ -7,6 +7,7 @@ public enum IPAError: Error, LocalizedError, Hashable, Sendable {
     case persistence(String)
     case codeRequired
     case signInFailed(String)
+    case sessionExpired
     case paidApp
     case licenseRequired
     case appNotFound
@@ -25,6 +26,11 @@ public enum IPAError: Error, LocalizedError, Hashable, Sendable {
         case .missingRecord: String(appLocalized: "This record no longer exists. Refresh the list.")
         case .codeRequired:
             String(appLocalized: "Enter the six-digit code Apple sent to your devices.")
+        case .sessionExpired:
+            String(
+                appLocalized:
+                    "Your App Store sign-in expired. Open Accounts, add this Apple ID again, then download."
+            )
         case .paidApp: String(appLocalized: "Only free apps can be downloaded.")
         case .licenseRequired:
             String(appLocalized: "This account doesn't have this app yet. Get it first.")

@@ -26,15 +26,14 @@ struct StoreSettingsModelTests {
         directoryServicesID: "2")
 
     private func fixture(
-        availability: EngineAvailability = .ready,
-        serverConfig: any ServerConfigStoring = DisabledServerConfig()
+        availability: EngineAvailability = .ready
     ) throws -> Fixture {
         let defaults = try #require(UserDefaults(suiteName: "StoreSettings.\(UUID().uuidString)"))
         let vault = TestVault(accounts: [ana, bruno])
         let root = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
         let services = StoreServices(
             catalog: TestCatalog(), engine: TestEngine(state: availability), vault: vault,
-            folder: DownloadFolder(root: root), serverConfig: serverConfig)
+            folder: DownloadFolder(root: root))
         let repositories = try IPADatabase.open(inMemory: true).repositories
         let settings = SettingsModel(defaults: defaults, languageSetting: LanguageSetting())
         let session = SessionModel(repositories: repositories, services: services)
@@ -62,37 +61,6 @@ struct StoreSettingsModelTests {
         fixture.store.resultsLimit = 200
         #expect(fixture.preferences.resultsLimit == 200)
         #expect(fixture.store.resultsValue == "200")
-    }
-
-    @Test func savingAServerNormalizesAndStoresIt() throws {
-        let config = TestServerConfig()
-        let fixture = try fixture(serverConfig: config)
-        fixture.store.serverAddress = "host.example:8080"
-        fixture.store.serverToken = " token "
-        fixture.store.saveServer()
-        #expect(config.load()?.baseURL.absoluteString == "https://host.example:8080")
-        #expect(config.load()?.token == "token")
-        #expect(fixture.store.serverValue == "host.example")
-        #expect(fixture.store.serverEnabled)
-    }
-
-    @Test func savingABlankServerReportsAnError() throws {
-        let fixture = try fixture()
-        fixture.store.serverAddress = "   "
-        fixture.store.saveServer()
-        #expect(fixture.store.error == .invalidInput(String(appLocalized: "Enter the server address.")))
-        #expect(!fixture.store.serverEnabled)
-    }
-
-    @Test func removingAServerClearsTheFields() throws {
-        let config = TestServerConfig(ServerConfig(baseURL: URL(string: "https://host.example")!))
-        let fixture = try fixture(serverConfig: config)
-        fixture.store.loadServer()
-        #expect(fixture.store.serverAddress == "https://host.example")
-        fixture.store.removeServer()
-        #expect(config.load() == nil)
-        #expect(fixture.store.serverAddress.isEmpty)
-        #expect(!fixture.store.serverEnabled)
     }
 
     @Test func newIdentitySignsOutEveryAccount() async throws {

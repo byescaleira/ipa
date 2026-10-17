@@ -1,0 +1,4 @@
+// Copie para Server.xcconfig e preencha com o seu backend.
+// Server.xcconfig é ignorado pelo git (contém o token).
+IPA_SERVER_HOST = ipa.byescaleira.com
+IPA_SERVER_TOKEN = coloque-o-token-aqui

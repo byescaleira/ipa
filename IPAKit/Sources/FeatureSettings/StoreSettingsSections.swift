@@ -46,12 +46,6 @@ private struct StoreRowsSection: View {
             ) {
                 SettingsPage("Store Engine") { EngineSection() }.environment(store)
             }
-            SettingsRow(
-                "Server", symbol: "server.rack", color: RetroColor.teal.color,
-                value: store.serverValue
-            ) {
-                SettingsPage("Server") { ServerSection() }.environment(store)
-            }
         } header: {
             Text("Store")
         }

@@ -77,3 +77,6 @@ IPAKit/Frameworks/StikJIT.xcframework
 .agents/
 .claude/skills/
 skills-lock.json
+
+# Server config with the signed token (use Server.xcconfig.example as a template)
+IPA/Server.xcconfig

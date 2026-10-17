@@ -64,40 +64,6 @@ extension StoreSettingsModel {
 
     var canCheckEngine: Bool { availability == .needsJIT }
 
-    var serverValue: String {
-        guard let config = session.services.serverConfig.load() else {
-            return String(appLocalized: "Off")
-        }
-        return config.baseURL.host ?? config.baseURL.absoluteString
-    }
-
-    var serverChip: String {
-        switch serverStatus {
-        case .idle:
-            serverEnabled
-                ? String(appLocalized: "Saved") : String(appLocalized: "Not Set")
-        case .checking: String(appLocalized: "Checking…")
-        case .online: String(appLocalized: "Online")
-        case .failed: String(appLocalized: "Unreachable")
-        }
-    }
-
-    var serverChipColor: Color {
-        switch serverStatus {
-        case .online: .positive
-        case .failed: .negative
-        case .checking: .info
-        case .idle: serverEnabled ? .info : .secondary
-        }
-    }
-
-    var serverFooter: String {
-        String(
-            appLocalized:
-                "Point IPA at your own server running the store engine, so sign-in and downloads work without JIT on this device. Your Apple ID and password travel to that server, so use only a server you trust over HTTPS."
-        )
-    }
-
     var usedBytes: Int64 { downloads.records.reduce(0) { $0 + $1.sizeBytes } }
 
     var usedSpaceText: String { ByteCount.text(usedBytes) }

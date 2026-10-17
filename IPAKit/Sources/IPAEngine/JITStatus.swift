@@ -25,6 +25,8 @@ enum JITStatus {
 
 #if os(iOS)
     @_silgen_name("csops")
-    private func csops(_ pid: Int32, _ ops: UInt32, _ useraddr: UnsafeMutableRawPointer, _ usersize: Int)
+    private func csops(
+        _ pid: Int32, _ ops: UInt32, _ useraddr: UnsafeMutableRawPointer, _ usersize: Int
+    )
         -> Int32
 #endif

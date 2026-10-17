@@ -70,20 +70,6 @@ struct TestEngine: StoreEngine {
     }
 }
 
-final class TestServerConfig: ServerConfigStoring {
-    private let state: Mutex<ServerConfig?>
-
-    init(_ config: ServerConfig? = nil) {
-        state = Mutex(config)
-    }
-
-    func load() -> ServerConfig? { state.withLock { $0 } }
-
-    func save(_ config: ServerConfig) throws { state.withLock { $0 = config } }
-
-    func clear() throws { state.withLock { $0 = nil } }
-}
-
 struct TestCatalog: StoreCatalog {
     func search(_ term: String, in storefront: Storefront, limit: Int) async throws -> [StoreApp] {
         []

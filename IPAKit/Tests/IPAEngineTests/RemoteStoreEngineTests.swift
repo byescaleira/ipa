@@ -29,13 +29,22 @@ private final class MockURLProtocol: URLProtocol {
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
 
     override func startLoading() {
-        let url = request.url!
+        guard let url = request.url else {
+            client?.urlProtocolDidFinishLoading(self)
+            return
+        }
         Self.requests.withLock { $0.append(url) }
         let reply =
             Self.routes.withLock { $0[url.path] }
             ?? Reply(status: 404, headers: [:], body: Data())
-        let response = HTTPURLResponse(
-            url: url, statusCode: reply.status, httpVersion: "HTTP/1.1", headerFields: reply.headers)!
+        guard
+            let response = HTTPURLResponse(
+                url: url, statusCode: reply.status, httpVersion: "HTTP/1.1",
+                headerFields: reply.headers)
+        else {
+            client?.urlProtocolDidFinishLoading(self)
+            return
+        }
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
         client?.urlProtocol(self, didLoad: reply.body)
         client?.urlProtocolDidFinishLoading(self)
@@ -51,12 +60,13 @@ private func makeSession() -> URLSession {
 }
 
 private func json(_ value: [String: Any]) -> Data {
-    try! JSONSerialization.data(withJSONObject: value)
+    (try? JSONSerialization.data(withJSONObject: value)) ?? Data()
 }
 
 @Suite(.serialized)
 struct RemoteStoreEngineTests {
-    private let config = ServerConfig(baseURL: URL(string: "https://host.example")!, token: "secret")
+    private let config = ServerConfig(
+        baseURL: URL(string: "https://host.example")!, token: "secret")
     private let app = StoreApp(id: 42, bundleID: "com.example.app", name: "Example", version: "1.0")
 
     private func engine(vault: any AccountVault) -> RemoteStoreEngine {

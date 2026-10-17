@@ -20,24 +20,28 @@ public struct RemoteStoreEngine: StoreEngine {
     }
 
     public func signIn(_ request: SignInRequest) async throws -> Account {
-        let response = try await send("v1/login", [
-            "email": request.email,
-            "password": request.password,
-            "code": request.code ?? "",
-            "macAddress": (try? vault.identity().macAddress) ?? "",
-        ])
+        let response = try await send(
+            "v1/login",
+            [
+                "email": request.email,
+                "password": request.password,
+                "code": request.code ?? "",
+                "macAddress": (try? vault.identity().macAddress) ?? "",
+            ])
         guard let raw = response["account"] as? [String: Any],
             let data = try? JSONSerialization.data(withJSONObject: raw),
             let account = Self.account(from: raw)
         else {
-            throw IPAError.signInFailed(String(appLocalized: "The server returned an unexpected response."))
+            throw IPAError.signInFailed(
+                String(appLocalized: "The server returned an unexpected response."))
         }
         try vault.save(account, credential: data)
         return account
     }
 
     public func versions(of app: StoreApp, for account: Account) async throws -> [String] {
-        let response = try await send("v1/versions", base(app: app, account: try credential(for: account)))
+        let response = try await send(
+            "v1/versions", base(app: app, account: try credential(for: account)))
         guard let versions = response["versions"] as? [String] else { return [] }
         return versions.reversed()
     }
@@ -78,7 +82,8 @@ public struct RemoteStoreEngine: StoreEngine {
         let name = PackageName.file(
             bundleID: request.app.bundleID, appID: request.app.id, version: version)
         let destination = request.destination.appending(path: name)
-        FileManager.default.createFile(atPath: destination.path(percentEncoded: false), contents: nil)
+        FileManager.default.createFile(
+            atPath: destination.path(percentEncoded: false), contents: nil)
         let handle = try FileHandle(forWritingTo: destination)
         defer { try? handle.close() }
 
@@ -91,7 +96,9 @@ public struct RemoteStoreEngine: StoreEngine {
                 try handle.write(contentsOf: buffer)
                 written += Int64(buffer.count)
                 buffer.removeAll(keepingCapacity: true)
-                progress(DownloadProgress(phase: .downloading, completedBytes: written, totalBytes: total))
+                progress(
+                    DownloadProgress(
+                        phase: .downloading, completedBytes: written, totalBytes: total))
             }
         }
         if !buffer.isEmpty {
@@ -133,20 +140,25 @@ public struct RemoteStoreEngine: StoreEngine {
     }
 
     private func send(_ path: String, _ payload: [String: Any]) async throws -> [String: Any] {
-        log.info("POST \(path, privacy: .public) → \(config.baseURL.absoluteString, privacy: .public)")
+        log.info(
+            "POST \(path, privacy: .public) → \(config.baseURL.absoluteString, privacy: .public)")
         let (data, response): (Data, URLResponse)
         do {
             (data, response) = try await session.data(for: try post(path, payload))
         } catch let error as IPAError {
             throw error
         } catch {
-            log.error("POST \(path, privacy: .public) transport error: \(error.localizedDescription, privacy: .public)")
+            log.error(
+                "POST \(path, privacy: .public) transport error: \(error.localizedDescription, privacy: .public)"
+            )
             throw IPAError.network
         }
         let status = (response as? HTTPURLResponse)?.statusCode ?? 0
         let object = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] ?? [:]
         if let error = object["error"] as? [String: Any] {
-            log.error("POST \(path, privacy: .public) ← \(status) error \(String(describing: error["code"]), privacy: .public)")
+            log.error(
+                "POST \(path, privacy: .public) ← \(status) error \(String(describing: error["code"]), privacy: .public)"
+            )
             throw Self.map(error)
         }
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
@@ -184,6 +196,7 @@ public struct RemoteStoreEngine: StoreEngine {
         let message = error["message"] as? String ?? String(appLocalized: "The server failed.")
         switch error["code"] as? String {
         case "code_required": return .codeRequired
+        case "token_expired": return .sessionExpired
         case "license_required": return .licenseRequired
         case "not_found": return .appNotFound
         case "paid_app": return .paidApp

@@ -21,25 +21,29 @@ public struct IPAToolEngine: StoreEngine {
 
     public func signIn(_ request: SignInRequest) async throws -> Account {
         let identity = try vault.identity()
-        let response = try await run("login", [
-            "email": request.email,
-            "password": request.password,
-            "code": request.code ?? "",
-            "macAddress": identity.macAddress,
-            "home": NSTemporaryDirectory(),
-        ])
+        let response = try await run(
+            "login",
+            [
+                "email": request.email,
+                "password": request.password,
+                "code": request.code ?? "",
+                "macAddress": identity.macAddress,
+                "home": NSTemporaryDirectory(),
+            ])
         guard let raw = response["account"] as? [String: Any],
             let data = try? JSONSerialization.data(withJSONObject: raw),
             let account = Self.account(from: raw)
         else {
-            throw IPAError.signInFailed(String(appLocalized: "Apple returned an unexpected response."))
+            throw IPAError.signInFailed(
+                String(appLocalized: "Apple returned an unexpected response."))
         }
         try vault.save(account, credential: data)
         return account
     }
 
     public func versions(of app: StoreApp, for account: Account) async throws -> [String] {
-        let response = try await run("versions", base(app: app, account: try credential(for: account)))
+        let response = try await run(
+            "versions", base(app: app, account: try credential(for: account)))
         guard let versions = response["versions"] as? [String] else { return [] }
         return versions.reversed()
     }
@@ -69,7 +73,8 @@ public struct IPAToolEngine: StoreEngine {
         payload["outputPath"] = request.destination.path(percentEncoded: false)
         let start = try await run("download_start", payload)
         guard let taskID = start["taskID"] as? String else {
-            throw IPAError.store(String(appLocalized: "The store engine could not start the download."))
+            throw IPAError.store(
+                String(appLocalized: "The store engine could not start the download."))
         }
 
         while true {
@@ -114,12 +119,18 @@ public struct IPAToolEngine: StoreEngine {
     }
 
     private func run(_ name: String, _ payload: [String: Any]) async throws -> [String: Any] {
-        log.info("local engine op \(name, privacy: .public), availability \(String(describing: JITStatus.availability), privacy: .public)")
-        guard JITStatus.availability == .ready else { throw IPAError.engine(JITStatus.availability) }
-        let request = String(
-            data: try JSONSerialization.data(withJSONObject: payload), encoding: .utf8) ?? "{}"
+        log.info(
+            "local engine op \(name, privacy: .public), availability \(String(describing: JITStatus.availability), privacy: .public)"
+        )
+        guard JITStatus.availability == .ready else {
+            throw IPAError.engine(JITStatus.availability)
+        }
+        let request =
+            String(
+                data: try JSONSerialization.data(withJSONObject: payload), encoding: .utf8) ?? "{}"
         log.info("local engine entering Unicorn for \(name, privacy: .public)")
-        let text = await Task.detached(priority: .userInitiated) { Bridge.call(name, request) }.value
+        let text = await Task.detached(priority: .userInitiated) { Bridge.call(name, request) }
+            .value
         let object = Self.object(from: text)
         if let error = object["error"] as? [String: Any] { throw Self.map(error) }
         return object
@@ -164,7 +175,8 @@ public struct IPAToolEngine: StoreEngine {
     }
 
     private static func map(_ error: [String: Any]) -> IPAError {
-        let message = error["message"] as? String ?? String(appLocalized: "The store engine failed.")
+        let message =
+            error["message"] as? String ?? String(appLocalized: "The store engine failed.")
         switch error["code"] as? String {
         case "code_required": return .codeRequired
         case "license_required": return .licenseRequired
