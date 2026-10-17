@@ -105,7 +105,7 @@ func classify(err error) apiError {
 }
 
 const (
-	sessionTTL  = 30 * time.Minute
+	sessionTTL  = 12 * time.Hour
 	maxSessions = 64
 )
 
