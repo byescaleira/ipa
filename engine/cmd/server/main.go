@@ -167,6 +167,18 @@ func (s *sessions) evictLocked() {
 	}
 }
 
+var sapGate = make(chan struct{}, 1)
+
+func acquireGate(w http.ResponseWriter, r *http.Request) (func(), bool) {
+	select {
+	case sapGate <- struct{}{}:
+		return func() { <-sapGate }, true
+	case <-r.Context().Done():
+		writeError(w, r.Context().Err())
+		return nil, false
+	}
+}
+
 type server struct {
 	token    string
 	cache    string
@@ -299,6 +311,11 @@ func (s server) handleLogin(w http.ResponseWriter, r *http.Request) {
 	if !s.authorize(w, r) {
 		return
 	}
+	gate, ok := acquireGate(w, r)
+	if !ok {
+		return
+	}
+	defer gate()
 	var input loginRequest
 	if !decode(w, r, &input) {
 		return
@@ -323,6 +340,11 @@ func (s server) handleVersions(w http.ResponseWriter, r *http.Request) {
 	if !s.authorize(w, r) {
 		return
 	}
+	gate, ok := acquireGate(w, r)
+	if !ok {
+		return
+	}
+	defer gate()
 	var input appRequest
 	if !decode(w, r, &input) {
 		return
@@ -350,6 +372,11 @@ func (s server) handleVersion(w http.ResponseWriter, r *http.Request) {
 	if !s.authorize(w, r) {
 		return
 	}
+	gate, ok := acquireGate(w, r)
+	if !ok {
+		return
+	}
+	defer gate()
 	var input appRequest
 	if !decode(w, r, &input) {
 		return
@@ -378,6 +405,11 @@ func (s server) handlePurchase(w http.ResponseWriter, r *http.Request) {
 	if !s.authorize(w, r) {
 		return
 	}
+	gate, ok := acquireGate(w, r)
+	if !ok {
+		return
+	}
+	defer gate()
 	var input appRequest
 	if !decode(w, r, &input) {
 		return
@@ -402,6 +434,11 @@ func (s server) handleDownload(w http.ResponseWriter, r *http.Request) {
 	if !s.authorize(w, r) {
 		return
 	}
+	gate, ok := acquireGate(w, r)
+	if !ok {
+		return
+	}
+	defer gate()
 	var input appRequest
 	if !decode(w, r, &input) {
 		return

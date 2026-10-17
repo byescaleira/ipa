@@ -66,7 +66,8 @@ public struct RemoteStoreEngine: StoreEngine {
         payload["versionID"] = request.externalVersionID ?? ""
         progress(DownloadProgress(phase: .preparing))
 
-        let (bytes, response) = try await session.bytes(for: post("v1/download", payload))
+        let (bytes, response) = try await session.bytes(
+            for: post("v1/download", payload, timeout: 600))
         guard let http = response as? HTTPURLResponse else { throw IPAError.network }
         if http.statusCode != 200 {
             throw try await Self.error(from: bytes)
@@ -118,8 +119,10 @@ public struct RemoteStoreEngine: StoreEngine {
         ]
     }
 
-    private func post(_ path: String, _ payload: [String: Any]) throws -> URLRequest {
-        var request = URLRequest(url: config.endpoint(path))
+    private func post(_ path: String, _ payload: [String: Any], timeout: TimeInterval = 120) throws
+        -> URLRequest
+    {
+        var request = URLRequest(url: config.endpoint(path), timeoutInterval: timeout)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         if !config.token.isEmpty {
